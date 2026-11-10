@@ -12,7 +12,7 @@ Bruto em `/dados/entrada` → corta pausas (Auto-Editor) → transcreve em pt (f
 - `legado/` — scripts antigos (backup de 09/11/2026)
 
 ## Ajustes
-Variáveis no `docker-compose.yml`: `WHISPER_MODEL` (small/medium), `CORTE_MARGEM`, `CORTE_LIMIAR`, `INTERVALO`.
+Ajustes em `config.json` (modelo do Whisper, limpeza de voz, volume em LUFS, zoom alternado) — basta editar, dar push e "Restart" no painel.
 
 ## Teste manual
 `docker compose run --rm editor python /app/edicao/pipeline.py /dados/entrada/video.mp4 /dados/prontos`

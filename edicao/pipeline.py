@@ -13,7 +13,10 @@ from pathlib import Path
 
 AQUI = Path(__file__).resolve().parent
 MARCA = Path(os.environ.get("MARCA", "/dados/marca"))
-MODELO = os.environ.get("WHISPER_MODEL", "small")
+CFG = json.loads((AQUI.parent / "config.json").read_text()) if (AQUI.parent / "config.json").exists() else {}
+MODELO = CFG.get("modelo_whisper") or os.environ.get("WHISPER_MODEL", "small")
+CACHE = Path(os.environ.get("HF_HOME", "/tmp")).parent
+RNN_URL = "https://raw.githubusercontent.com/richardpl/arnndn-models/master/sh.rnnn"
 MARGEM = os.environ.get("CORTE_MARGEM", "0.25s,0.35s")   # antes,depois de cada fala
 LIMIAR = os.environ.get("CORTE_LIMIAR", "audio:threshold=0.035")
 
@@ -32,8 +35,21 @@ def duracao(p):
 def normalizar(entrada, saida_dir, base):
     """Aplica a rotação do celular e deixa tudo em 1080x1920, 30 fps (o Auto-Editor perde a rotação)."""
     norm = saida_dir / f"{base} - vertical.mp4"
+    af = "highpass=f=80"
+    if CFG.get("limpar_voz", True):
+        rnn = CACHE / "sh.rnnn"
+        if not rnn.exists():
+            try:
+                import urllib.request; urllib.request.urlretrieve(RNN_URL, rnn)
+            except Exception as e:
+                print("aviso: sem modelo de limpeza de voz:", e, flush=True)
+        if rnn.exists():
+            af += f",arnndn=m='{rnn.as_posix()}':mix=0.85"
+    af += (",acompressor=threshold=-20dB:ratio=2.5:attack=5:release=150"
+           f",loudnorm=I={CFG.get('loudness_lufs', -14)}:TP=-1.5:LRA=11")
     sh("ffmpeg", "-y", "-v", "error", "-i", entrada,
        "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1",
+       "-af", af, "-ar", "48000",
        "-r", "30", "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-c:a", "aac", "-b:a", "192k", norm)
     return norm
 
@@ -107,6 +123,13 @@ def renderizar(video, dados, saida_dir, base, com_legenda=True, com_vinheta=True
     dur = duracao(video)
     filtros, entradas, mapa_a = [], ["-i", str(video)], "0:a"
     v = "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920"
+    if CFG.get("zoom_alternado", True) and len(dados) > 1:
+        z = CFG.get("zoom", 1.12); cy = CFG.get("zoom_centro_y", 0.36)
+        trechos = "+".join(f"between(t,{d['ini']:.2f},{dados[i+1]['ini'] if i+1 < len(dados) else d['fim']:.2f})"
+                           for i, d in enumerate(dados) if i % 2 == 1)
+        cond = trechos.replace("t,", "in/30,")
+        v += (f",zoompan=z='if({cond},{z},1)':x='iw/2-iw/zoom/2':y='(ih-ih/zoom)*{cy}'"
+              f":d=1:s=1080x1920:fps=30")
     if com_legenda and dados:
         ass = saida_dir / f"{base}.ass"; ass_legenda(dados, ass)
         v += f",subtitles='{ass.as_posix()}'"

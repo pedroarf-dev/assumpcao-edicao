@@ -1,0 +1,8 @@
+{
+  "modelo_whisper": "large-v3-turbo",
+  "limpar_voz": true,
+  "loudness_lufs": -14,
+  "zoom_alternado": true,
+  "zoom": 1.12,
+  "zoom_centro_y": 0.36
+}
