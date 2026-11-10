@@ -138,14 +138,22 @@ def main():
     ap.add_argument("--sem-transcricao", action="store_true")
     a = ap.parse_args()
     entrada = Path(a.entrada); base = entrada.stem
-    saida = Path(a.saida) / base; saida.mkdir(parents=True, exist_ok=True)
+    destino = Path(a.saida) / base
+    # trabalha numa pasta à parte e só move para "prontos" no fim (o sync não pega arquivo pela metade)
+    saida = Path(os.environ.get("TRABALHO", str(Path(a.saida).parent / "trabalho"))) / base
+    if saida.exists(): shutil.rmtree(saida)
+    saida.mkdir(parents=True, exist_ok=True)
     cortado = cortar(entrada, saida, base)
     dados = [] if a.sem_transcricao else transcrever(cortado, saida, base)
     renderizar(cortado, dados, saida, base, not a.sem_legenda, not a.sem_vinheta)
     (saida / "PRONTO.txt").write_text(
         f"bruto: {entrada.name}\nduração bruto: {duracao(entrada):.1f}s\nduração cortado: {duracao(cortado):.1f}s\n",
         encoding="utf-8")
-    print("ok:", saida, flush=True)
+    for f in list(saida.glob("* - vertical.mp4")) + list(saida.glob("*.ass")):
+        f.unlink()   # intermediários
+    if destino.exists(): shutil.rmtree(destino)
+    shutil.move(str(saida), str(destino))
+    print("ok:", destino, flush=True)
 
 
 if __name__ == "__main__":
