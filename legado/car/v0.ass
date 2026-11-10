@@ -1,0 +1,28 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 720
+PlayResY: 1280
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: P,Inter Medium,56,&H00F4FAFC,&H00F4FAFC,&H00141414,&H00141414,0,0,0,0,100,100,0,0,3,7,0,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.20,0:00:01.22,P,,0,0,0,,{\an5\pos(335,1185)\frz1.7}pera
+Dialogue: 0,0:00:00.20,0:00:01.22,P,,0,0,0,,{\an5\pos(412,1185)\frz1.3}aí
+Dialogue: 0,0:00:01.22,0:00:02.76,P,,0,0,0,,{\an5\pos(251,1185)\frz-0.4}não
+Dialogue: 0,0:00:01.22,0:00:02.76,P,,0,0,0,,{\an5\pos(360,1185)\frz-1.2}passa
+Dialogue: 0,0:00:01.22,0:00:02.76,P,,0,0,0,,{\an5\pos(469,1185)\frz0.1}não
+Dialogue: 0,0:00:02.76,0:00:03.27,P,,0,0,0,,{\an5\pos(360,1185)\frz-0.5}política
+Dialogue: 0,0:00:03.27,0:00:03.78,P,,0,0,0,,{\an5\pos(360,1185)\frz1.4}arte
+Dialogue: 0,0:00:03.78,0:00:05.32,P,,0,0,0,,{\an5\pos(233,1185)\frz-1.0}psicanálise
+Dialogue: 0,0:00:03.78,0:00:05.32,P,,0,0,0,,{\an5\pos(368,1185)\frz-0.1}e
+Dialogue: 0,0:00:03.78,0:00:05.32,P,,0,0,0,,{\an5\pos(495,1185)\frz0.4}sociedade
+Dialogue: 0,0:00:05.57,0:00:06.32,P,,0,0,0,,{\an5\pos(268,1185)\frz2.0}o
+Dialogue: 0,0:00:05.57,0:00:06.32,P,,0,0,0,,{\an5\pos(334,1185)\frz0.0}que
+Dialogue: 0,0:00:05.57,0:00:06.32,P,,0,0,0,,{\an5\pos(426,1185)\frz-1.1}elas
+Dialogue: 0,0:00:06.32,0:00:07.07,P,,0,0,0,,{\an5\pos(243,1185)\frz1.3}têm
+Dialogue: 0,0:00:06.32,0:00:07.07,P,,0,0,0,,{\an5\pos(326,1185)\frz0.6}em
+Dialogue: 0,0:00:06.32,0:00:07.07,P,,0,0,0,,{\an5\pos(443,1185)\frz-1.2}comum

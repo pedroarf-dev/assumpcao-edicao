@@ -1,0 +1,33 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 720
+PlayResY: 1280
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: P,Inter Medium,56,&H00121212,&H00121212,&H001AC4F6,&H001AC4F6,0,0,0,0,100,100,0,0,3,7,0,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.15,0:00:01.42,P,,0,0,0,,{\an5\pos(289,1185)\frz-0.9}não
+Dialogue: 0,0:00:00.15,0:00:01.42,P,,0,0,0,,{\an5\pos(354,1185)\frz-1.7}é
+Dialogue: 0,0:00:00.15,0:00:01.42,P,,0,0,0,,{\an5\pos(425,1185)\frz0.8}time
+Dialogue: 0,0:00:01.42,0:00:02.70,P,,0,0,0,,{\an5\pos(266,1185)\frz-2.1}é
+Dialogue: 0,0:00:01.42,0:00:02.70,P,,0,0,0,,{\an5\pos(337,1185)\frz0.2}uma
+Dialogue: 0,0:00:01.42,0:00:02.70,P,,0,0,0,,{\an5\pos(431,1185)\frz-0.7}luta
+Dialogue: 0,0:00:02.85,0:00:03.66,P,,0,0,0,,{\an5\pos(295,1185)\frz-2.2}ah
+Dialogue: 0,0:00:02.85,0:00:03.66,P,,0,0,0,,{\an5\pos(348,1185)\frz0.0}e
+Dialogue: 0,0:00:02.85,0:00:03.66,P,,0,0,0,,{\an5\pos(413,1185)\frz-2.3}não
+Dialogue: 0,0:00:03.66,0:00:04.47,P,,0,0,0,,{\an5\pos(243,1185)\frz-0.3}vamo
+Dialogue: 0,0:00:03.66,0:00:04.47,P,,0,0,0,,{\an5\pos(371,1185)\frz-2.2}deixar
+Dialogue: 0,0:00:03.66,0:00:04.47,P,,0,0,0,,{\an5\pos(488,1185)\frz-2.0}nem
+Dialogue: 0,0:00:04.47,0:00:05.28,P,,0,0,0,,{\an5\pos(289,1185)\frz-0.4}o
+Dialogue: 0,0:00:04.47,0:00:05.28,P,,0,0,0,,{\an5\pos(360,1185)\frz1.6}café
+Dialogue: 0,0:00:04.47,0:00:05.28,P,,0,0,0,,{\an5\pos(432,1185)\frz-1.9}e
+Dialogue: 0,0:00:05.28,0:00:06.09,P,,0,0,0,,{\an5\pos(274,1185)\frz-1.4}nem
+Dialogue: 0,0:00:05.28,0:00:06.09,P,,0,0,0,,{\an5\pos(345,1185)\frz0.6}a
+Dialogue: 0,0:00:05.28,0:00:06.09,P,,0,0,0,,{\an5\pos(431,1185)\frz2.2}nossa
+Dialogue: 0,0:00:06.09,0:00:06.90,P,,0,0,0,,{\an5\pos(238,1185)\frz0.4}luta
+Dialogue: 0,0:00:06.09,0:00:06.90,P,,0,0,0,,{\an5\pos(352,1185)\frz-0.5}esfriar
+Dialogue: 0,0:00:06.09,0:00:06.90,P,,0,0,0,,{\an5\pos(474,1185)\frz2.4}bora

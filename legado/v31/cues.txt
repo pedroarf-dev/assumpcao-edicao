@@ -1,0 +1,24 @@
+p1|1|0.427|1.467|Pera aí, pera aí, não passa não.
+p1|2|2.086|3.127|Vamo tomar cafezinho.
+p1|3|3.167|5.187|Hoje o café é curto e o papo é rápido.
+p1|4|5.827|11.267|Então, cara, uma semana da virada histórica das nossas eleições mais
+p1|5|11.307|14.127|importantes e de uma semana muito tensa.
+p1|6|14.767|18.807|Mas eu queria aproveitar esse momento pra poder fazer um parêntese, fazer
+p1|7|18.827|23.447|uma retrospectiva das últimas três semanas e dar mérito a quem merece.
+p1|8|23.967|28.367|Cês perceberam a importância da arte nesse movimento de virada?
+p1|9|29.007|34.867|Quanto a música, os artistas, os desenhistas, os fotógrafos tiveram
+p1|10|34.907|37.067|papel primordial nessa virada?
+p1|11|37.127|40.607|Eles deram voz a quem não tinha.
+p1|12|41.147|42.707|Eles fizeram pessoas vir participar.
+p1|13|42.747|48.567|Eu mesmo não tinha rede social com esse intuito, e me senti convocado
+p1|14|48.607|54.647|a tá nessa batalha, e conversar com vocês.
+p1|15|55.567|62.947|Então assim, vai ser muito importante a arte nesses próximos anos pra
+p1|16|62.987|67.527|poder condensar esse movimento político.
+p1|17|67.866|72.587|Aliás, nunca se esqueçam: política se discute sim, e não
+p1|18|72.646|75.146|é só de quatro em quatro anos, nem de dois em dois, não.
+p1|19|75.187|77.267|Política se discute todo dia.
+p1|20|77.707|82.707|Agora me diz você: que que cê queria fazer nesses próximos dias?
+p1|21|83.646|87.426|Que voz que cê gostaria de falar pro mundo que você ainda não falou?
+p1|22|88.347|89.926|Escreve aí ou me manda mensagem.
+p2|23|0.910|4.689|Ah, e não vamo deixar nem o café e nem a nossa luta esfriar.
+p2|24|5.810|6.150|Bora.

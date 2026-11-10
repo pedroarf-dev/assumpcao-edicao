@@ -1,0 +1,36 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 720
+PlayResY: 1280
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: P,Inter Medium,56,&H00F4FAFC,&H00F4FAFC,&H00141414,&H00141414,0,0,0,0,100,100,0,0,3,7,0,5,0,0,0,1
+
+Style: T,Lilita One,40,&H001AC4F6,&H00FFFFFF,&H00141414,&H00141414,0,0,0,0,100,100,1,-2,3,12,0,8,50,50,95,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.15,0:00:01.48,P,,0,0,0,,{\an5\pos(222,1185)\frz-1.8}nunca
+Dialogue: 0,0:00:00.15,0:00:01.48,P,,0,0,0,,{\an5\pos(321,1185)\frz1.7}se
+Dialogue: 0,0:00:00.15,0:00:01.48,P,,0,0,0,,{\an5\pos(459,1185)\frz1.3}esqueçam
+Dialogue: 0,0:00:01.48,0:00:02.81,P,,0,0,0,,{\an5\pos(251,1185)\frz-1.2}política
+Dialogue: 0,0:00:01.48,0:00:02.81,P,,0,0,0,,{\an5\pos(359,1185)\frz-0.0}se
+Dialogue: 0,0:00:01.48,0:00:02.81,P,,0,0,0,,{\an5\pos(469,1185)\frz-0.3}discute
+Dialogue: 0,0:00:02.81,0:00:04.14,P,,0,0,0,,{\an5\pos(295,1185)\frz0.8}sim
+Dialogue: 0,0:00:02.81,0:00:04.14,P,,0,0,0,,{\an5\pos(358,1185)\frz1.4}e
+Dialogue: 0,0:00:02.81,0:00:04.14,P,,0,0,0,,{\an5\pos(423,1185)\frz-2.0}não
+Dialogue: 0,0:00:04.14,0:00:05.46,P,,0,0,0,,{\an5\pos(295,1185)\frz-2.4}é
+Dialogue: 0,0:00:04.14,0:00:05.46,P,,0,0,0,,{\an5\pos(348,1185)\frz1.7}só
+Dialogue: 0,0:00:04.14,0:00:05.46,P,,0,0,0,,{\an5\pos(413,1185)\frz-0.3}de
+Dialogue: 0,0:00:05.46,0:00:06.79,P,,0,0,0,,{\an5\pos(252,1185)\frz1.3}quatro
+Dialogue: 0,0:00:05.46,0:00:06.79,P,,0,0,0,,{\an5\pos(360,1185)\frz-2.5}em
+Dialogue: 0,0:00:05.46,0:00:06.79,P,,0,0,0,,{\an5\pos(468,1185)\frz-0.3}quatro
+Dialogue: 0,0:00:06.79,0:00:08.12,P,,0,0,0,,{\an5\pos(251,1185)\frz1.1}anos
+Dialogue: 0,0:00:06.79,0:00:08.12,P,,0,0,0,,{\an5\pos(383,1185)\frz-1.4}política
+Dialogue: 0,0:00:06.79,0:00:08.12,P,,0,0,0,,{\an5\pos(492,1185)\frz2.2}se
+Dialogue: 0,0:00:08.12,0:00:09.45,P,,0,0,0,,{\an5\pos(271,1185)\frz2.0}discute
+Dialogue: 0,0:00:08.12,0:00:09.45,P,,0,0,0,,{\an5\pos(400,1185)\frz-2.3}todo
+Dialogue: 0,0:00:08.12,0:00:09.45,P,,0,0,0,,{\an5\pos(489,1185)\frz-2.4}dia
+Dialogue: 1,0:00:00.00,0:01:00.00,T,,0,0,0,,{\fad(200,0)}TEM MAIS NO PERFIL

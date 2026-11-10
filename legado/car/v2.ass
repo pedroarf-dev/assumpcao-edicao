@@ -1,0 +1,38 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 720
+PlayResY: 1280
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: P,Inter Medium,56,&H00F4FAFC,&H00F4FAFC,&H00141414,&H00141414,0,0,0,0,100,100,0,0,3,7,0,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.20,0:00:01.29,P,,0,0,0,,{\an5\pos(210,1185)\frz2.3}a
+Dialogue: 0,0:00:00.20,0:00:01.29,P,,0,0,0,,{\an5\pos(308,1185)\frz2.2}política
+Dialogue: 0,0:00:00.20,0:00:01.29,P,,0,0,0,,{\an5\pos(458,1185)\frz-2.2}decide
+Dialogue: 0,0:00:01.29,0:00:02.39,P,,0,0,0,,{\an5\pos(226,1185)\frz-2.1}as
+Dialogue: 0,0:00:01.29,0:00:02.39,P,,0,0,0,,{\an5\pos(326,1185)\frz1.7}regras
+Dialogue: 0,0:00:01.29,0:00:02.39,P,,0,0,0,,{\an5\pos(460,1185)\frz1.2}dessa
+Dialogue: 0,0:00:02.39,0:00:02.75,P,,0,0,0,,{\an5\pos(360,1185)\frz0.8}convivência
+Dialogue: 0,0:00:03.00,0:00:03.61,P,,0,0,0,,{\an5\pos(299,1185)\frz-1.0}quem
+Dialogue: 0,0:00:03.00,0:00:03.61,P,,0,0,0,,{\an5\pos(422,1185)\frz0.5}come
+Dialogue: 0,0:00:03.61,0:00:04.21,P,,0,0,0,,{\an5\pos(287,1185)\frz0.5}quem
+Dialogue: 0,0:00:03.61,0:00:04.21,P,,0,0,0,,{\an5\pos(422,1185)\frz0.4}estuda
+Dialogue: 0,0:00:04.21,0:00:05.12,P,,0,0,0,,{\an5\pos(266,1185)\frz-1.7}quem
+Dialogue: 0,0:00:04.21,0:00:05.12,P,,0,0,0,,{\an5\pos(349,1185)\frz-0.3}é
+Dialogue: 0,0:00:04.21,0:00:05.12,P,,0,0,0,,{\an5\pos(443,1185)\frz-0.5}ouvido
+Dialogue: 0,0:00:05.12,0:00:06.03,P,,0,0,0,,{\an5\pos(295,1185)\frz1.1}e
+Dialogue: 0,0:00:05.12,0:00:06.03,P,,0,0,0,,{\an5\pos(360,1185)\frz2.5}não
+Dialogue: 0,0:00:05.12,0:00:06.03,P,,0,0,0,,{\an5\pos(425,1185)\frz2.2}é
+Dialogue: 0,0:00:06.03,0:00:06.93,P,,0,0,0,,{\an5\pos(257,1185)\frz0.2}só
+Dialogue: 0,0:00:06.03,0:00:06.93,P,,0,0,0,,{\an5\pos(322,1185)\frz-0.3}de
+Dialogue: 0,0:00:06.03,0:00:06.93,P,,0,0,0,,{\an5\pos(425,1185)\frz-1.2}quatro
+Dialogue: 0,0:00:06.93,0:00:07.84,P,,0,0,0,,{\an5\pos(235,1185)\frz-2.3}em
+Dialogue: 0,0:00:06.93,0:00:07.84,P,,0,0,0,,{\an5\pos(344,1185)\frz-2.4}quatro
+Dialogue: 0,0:00:06.93,0:00:07.84,P,,0,0,0,,{\an5\pos(468,1185)\frz-0.2}anos
+Dialogue: 0,0:00:07.84,0:00:08.75,P,,0,0,0,,{\an5\pos(271,1185)\frz-0.9}é
+Dialogue: 0,0:00:07.84,0:00:08.75,P,,0,0,0,,{\an5\pos(343,1185)\frz-0.6}todo
+Dialogue: 0,0:00:07.84,0:00:08.75,P,,0,0,0,,{\an5\pos(433,1185)\frz2.0}dia

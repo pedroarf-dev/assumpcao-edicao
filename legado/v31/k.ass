@@ -1,0 +1,218 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 720
+PlayResY: 1280
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: K,Lato Black,60,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,5,2,2,60,60,360,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.09,0:00:00.25,K,,0,0,0,,{\c&H0018C5F5&}Pera{\c&H00FFFFFF&} aí, pera aí,
+Dialogue: 0,0:00:00.25,0:00:00.37,K,,0,0,0,,Pera {\c&H0018C5F5&}aí,{\c&H00FFFFFF&} pera aí,
+Dialogue: 0,0:00:00.37,0:00:00.53,K,,0,0,0,,Pera aí, {\c&H0018C5F5&}pera{\c&H00FFFFFF&} aí,
+Dialogue: 0,0:00:00.53,0:00:00.66,K,,0,0,0,,Pera aí, pera {\c&H0018C5F5&}aí,{\c&H00FFFFFF&}
+Dialogue: 0,0:00:00.66,0:00:00.78,K,,0,0,0,,{\c&H0018C5F5&}não{\c&H00FFFFFF&} passa não.
+Dialogue: 0,0:00:00.78,0:00:00.97,K,,0,0,0,,não {\c&H0018C5F5&}passa{\c&H00FFFFFF&} não.
+Dialogue: 0,0:00:00.97,0:00:01.32,K,,0,0,0,,não passa {\c&H0018C5F5&}não.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:01.32,0:00:01.56,K,,0,0,0,,{\c&H0018C5F5&}Vamo{\c&H00FFFFFF&} tomar cafezinho.
+Dialogue: 0,0:00:01.56,0:00:01.84,K,,0,0,0,,Vamo {\c&H0018C5F5&}tomar{\c&H00FFFFFF&} cafezinho.
+Dialogue: 0,0:00:01.84,0:00:02.40,K,,0,0,0,,Vamo tomar {\c&H0018C5F5&}cafezinho.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:02.40,0:00:02.66,K,,0,0,0,,{\c&H0018C5F5&}Hoje{\c&H00FFFFFF&} o café é
+Dialogue: 0,0:00:02.66,0:00:02.76,K,,0,0,0,,Hoje {\c&H0018C5F5&}o{\c&H00FFFFFF&} café é
+Dialogue: 0,0:00:02.76,0:00:03.02,K,,0,0,0,,Hoje o {\c&H0018C5F5&}café{\c&H00FFFFFF&} é
+Dialogue: 0,0:00:03.02,0:00:03.13,K,,0,0,0,,Hoje o café {\c&H0018C5F5&}é{\c&H00FFFFFF&}
+Dialogue: 0,0:00:03.13,0:00:03.44,K,,0,0,0,,{\c&H0018C5F5&}curto{\c&H00FFFFFF&} e o papo
+Dialogue: 0,0:00:03.44,0:00:03.54,K,,0,0,0,,curto {\c&H0018C5F5&}e{\c&H00FFFFFF&} o papo
+Dialogue: 0,0:00:03.54,0:00:03.64,K,,0,0,0,,curto e {\c&H0018C5F5&}o{\c&H00FFFFFF&} papo
+Dialogue: 0,0:00:03.64,0:00:03.90,K,,0,0,0,,curto e o {\c&H0018C5F5&}papo{\c&H00FFFFFF&}
+Dialogue: 0,0:00:03.90,0:00:04.01,K,,0,0,0,,{\c&H0018C5F5&}é{\c&H00FFFFFF&} rápido.
+Dialogue: 0,0:00:04.01,0:00:04.61,K,,0,0,0,,é {\c&H0018C5F5&}rápido.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:04.61,0:00:05.16,K,,0,0,0,,{\c&H0018C5F5&}Então,{\c&H00FFFFFF&} cara, uma semana
+Dialogue: 0,0:00:05.16,0:00:05.64,K,,0,0,0,,Então, {\c&H0018C5F5&}cara,{\c&H00FFFFFF&} uma semana
+Dialogue: 0,0:00:05.64,0:00:05.95,K,,0,0,0,,Então, cara, {\c&H0018C5F5&}uma{\c&H00FFFFFF&} semana
+Dialogue: 0,0:00:05.95,0:00:06.50,K,,0,0,0,,Então, cara, uma {\c&H0018C5F5&}semana{\c&H00FFFFFF&}
+Dialogue: 0,0:00:06.50,0:00:06.74,K,,0,0,0,,{\c&H0018C5F5&}da{\c&H00FFFFFF&} virada histórica das
+Dialogue: 0,0:00:06.74,0:00:07.29,K,,0,0,0,,da {\c&H0018C5F5&}virada{\c&H00FFFFFF&} histórica das
+Dialogue: 0,0:00:07.29,0:00:08.08,K,,0,0,0,,da virada {\c&H0018C5F5&}histórica{\c&H00FFFFFF&} das
+Dialogue: 0,0:00:08.08,0:00:08.40,K,,0,0,0,,da virada histórica {\c&H0018C5F5&}das{\c&H00FFFFFF&}
+Dialogue: 0,0:00:08.40,0:00:08.95,K,,0,0,0,,{\c&H0018C5F5&}nossas{\c&H00FFFFFF&} eleições mais
+Dialogue: 0,0:00:08.95,0:00:09.66,K,,0,0,0,,nossas {\c&H0018C5F5&}eleições{\c&H00FFFFFF&} mais
+Dialogue: 0,0:00:09.66,0:00:10.09,K,,0,0,0,,nossas eleições {\c&H0018C5F5&}mais{\c&H00FFFFFF&}
+Dialogue: 0,0:00:10.09,0:00:10.92,K,,0,0,0,,{\c&H0018C5F5&}importantes{\c&H00FFFFFF&} e de uma
+Dialogue: 0,0:00:10.92,0:00:11.05,K,,0,0,0,,importantes {\c&H0018C5F5&}e{\c&H00FFFFFF&} de uma
+Dialogue: 0,0:00:11.05,0:00:11.26,K,,0,0,0,,importantes e {\c&H0018C5F5&}de{\c&H00FFFFFF&} uma
+Dialogue: 0,0:00:11.26,0:00:11.54,K,,0,0,0,,importantes e de {\c&H0018C5F5&}uma{\c&H00FFFFFF&}
+Dialogue: 0,0:00:11.54,0:00:12.02,K,,0,0,0,,{\c&H0018C5F5&}semana{\c&H00FFFFFF&} muito tensa.
+Dialogue: 0,0:00:12.02,0:00:12.43,K,,0,0,0,,semana {\c&H0018C5F5&}muito{\c&H00FFFFFF&} tensa.
+Dialogue: 0,0:00:12.43,0:00:13.10,K,,0,0,0,,semana muito {\c&H0018C5F5&}tensa.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:13.10,0:00:13.32,K,,0,0,0,,{\c&H0018C5F5&}Mas{\c&H00FFFFFF&} eu queria aproveitar
+Dialogue: 0,0:00:13.32,0:00:13.48,K,,0,0,0,,Mas {\c&H0018C5F5&}eu{\c&H00FFFFFF&} queria aproveitar
+Dialogue: 0,0:00:13.48,0:00:13.87,K,,0,0,0,,Mas eu {\c&H0018C5F5&}queria{\c&H00FFFFFF&} aproveitar
+Dialogue: 0,0:00:13.87,0:00:14.47,K,,0,0,0,,Mas eu queria {\c&H0018C5F5&}aproveitar{\c&H00FFFFFF&}
+Dialogue: 0,0:00:14.47,0:00:14.74,K,,0,0,0,,{\c&H0018C5F5&}esse{\c&H00FFFFFF&} momento pra poder
+Dialogue: 0,0:00:14.74,0:00:15.18,K,,0,0,0,,esse {\c&H0018C5F5&}momento{\c&H00FFFFFF&} pra poder
+Dialogue: 0,0:00:15.18,0:00:15.39,K,,0,0,0,,esse momento {\c&H0018C5F5&}pra{\c&H00FFFFFF&} poder
+Dialogue: 0,0:00:15.39,0:00:15.72,K,,0,0,0,,esse momento pra {\c&H0018C5F5&}poder{\c&H00FFFFFF&}
+Dialogue: 0,0:00:15.72,0:00:16.05,K,,0,0,0,,{\c&H0018C5F5&}fazer{\c&H00FFFFFF&} um parêntese, fazer
+Dialogue: 0,0:00:16.05,0:00:16.21,K,,0,0,0,,fazer {\c&H0018C5F5&}um{\c&H00FFFFFF&} parêntese, fazer
+Dialogue: 0,0:00:16.21,0:00:16.81,K,,0,0,0,,fazer um {\c&H0018C5F5&}parêntese,{\c&H00FFFFFF&} fazer
+Dialogue: 0,0:00:16.81,0:00:17.16,K,,0,0,0,,fazer um parêntese, {\c&H0018C5F5&}fazer{\c&H00FFFFFF&}
+Dialogue: 0,0:00:17.16,0:00:17.42,K,,0,0,0,,{\c&H0018C5F5&}uma{\c&H00FFFFFF&} retrospectiva das últimas
+Dialogue: 0,0:00:17.42,0:00:18.33,K,,0,0,0,,uma {\c&H0018C5F5&}retrospectiva{\c&H00FFFFFF&} das últimas
+Dialogue: 0,0:00:18.33,0:00:18.59,K,,0,0,0,,uma retrospectiva {\c&H0018C5F5&}das{\c&H00FFFFFF&} últimas
+Dialogue: 0,0:00:18.59,0:00:19.11,K,,0,0,0,,uma retrospectiva das {\c&H0018C5F5&}últimas{\c&H00FFFFFF&}
+Dialogue: 0,0:00:19.11,0:00:19.44,K,,0,0,0,,{\c&H0018C5F5&}três{\c&H00FFFFFF&} semanas e dar
+Dialogue: 0,0:00:19.44,0:00:19.96,K,,0,0,0,,três {\c&H0018C5F5&}semanas{\c&H00FFFFFF&} e dar
+Dialogue: 0,0:00:19.96,0:00:20.09,K,,0,0,0,,três semanas {\c&H0018C5F5&}e{\c&H00FFFFFF&} dar
+Dialogue: 0,0:00:20.09,0:00:20.35,K,,0,0,0,,três semanas e {\c&H0018C5F5&}dar{\c&H00FFFFFF&}
+Dialogue: 0,0:00:20.35,0:00:20.80,K,,0,0,0,,{\c&H0018C5F5&}mérito{\c&H00FFFFFF&} a quem merece.
+Dialogue: 0,0:00:20.80,0:00:20.94,K,,0,0,0,,mérito {\c&H0018C5F5&}a{\c&H00FFFFFF&} quem merece.
+Dialogue: 0,0:00:20.94,0:00:21.26,K,,0,0,0,,mérito a {\c&H0018C5F5&}quem{\c&H00FFFFFF&} merece.
+Dialogue: 0,0:00:21.26,0:00:21.97,K,,0,0,0,,mérito a quem {\c&H0018C5F5&}merece.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:21.97,0:00:22.25,K,,0,0,0,,{\c&H0018C5F5&}Cês{\c&H00FFFFFF&} perceberam a importância
+Dialogue: 0,0:00:22.25,0:00:23.00,K,,0,0,0,,Cês {\c&H0018C5F5&}perceberam{\c&H00FFFFFF&} a importância
+Dialogue: 0,0:00:23.00,0:00:23.14,K,,0,0,0,,Cês perceberam {\c&H0018C5F5&}a{\c&H00FFFFFF&} importância
+Dialogue: 0,0:00:23.14,0:00:23.94,K,,0,0,0,,Cês perceberam a {\c&H0018C5F5&}importância{\c&H00FFFFFF&}
+Dialogue: 0,0:00:23.94,0:00:24.27,K,,0,0,0,,{\c&H0018C5F5&}da{\c&H00FFFFFF&} arte nesse movimento
+Dialogue: 0,0:00:24.27,0:00:24.29,K,,0,0,0,,da arte {\c&H0018C5F5&}nesse{\c&H00FFFFFF&} movimento
+Dialogue: 0,0:00:24.29,0:00:24.98,K,,0,0,0,,da arte nesse {\c&H0018C5F5&}movimento{\c&H00FFFFFF&}
+Dialogue: 0,0:00:24.98,0:00:25.18,K,,0,0,0,,{\c&H0018C5F5&}de{\c&H00FFFFFF&} virada?
+Dialogue: 0,0:00:25.18,0:00:25.92,K,,0,0,0,,de {\c&H0018C5F5&}virada?{\c&H00FFFFFF&}
+Dialogue: 0,0:00:25.92,0:00:26.53,K,,0,0,0,,{\c&H0018C5F5&}Quanto{\c&H00FFFFFF&} a música, os
+Dialogue: 0,0:00:26.53,0:00:26.70,K,,0,0,0,,Quanto {\c&H0018C5F5&}a{\c&H00FFFFFF&} música, os
+Dialogue: 0,0:00:26.70,0:00:27.39,K,,0,0,0,,Quanto a {\c&H0018C5F5&}música,{\c&H00FFFFFF&} os
+Dialogue: 0,0:00:27.39,0:00:27.65,K,,0,0,0,,Quanto a música, {\c&H0018C5F5&}os{\c&H00FFFFFF&}
+Dialogue: 0,0:00:27.65,0:00:28.51,K,,0,0,0,,{\c&H0018C5F5&}artistas,{\c&H00FFFFFF&} os desenhistas, os
+Dialogue: 0,0:00:28.51,0:00:28.77,K,,0,0,0,,artistas, {\c&H0018C5F5&}os{\c&H00FFFFFF&} desenhistas, os
+Dialogue: 0,0:00:28.77,0:00:29.89,K,,0,0,0,,artistas, os {\c&H0018C5F5&}desenhistas,{\c&H00FFFFFF&} os
+Dialogue: 0,0:00:29.89,0:00:30.13,K,,0,0,0,,artistas, os desenhistas, {\c&H0018C5F5&}os{\c&H00FFFFFF&}
+Dialogue: 0,0:00:30.13,0:00:30.28,K,,0,0,0,,{\c&H0018C5F5&}fotógrafos{\c&H00FFFFFF&} tiveram
+Dialogue: 0,0:00:31.38,0:00:31.44,K,,0,0,0,,fotógrafos {\c&H0018C5F5&}tiveram{\c&H00FFFFFF&}
+Dialogue: 0,0:00:31.44,0:00:31.86,K,,0,0,0,,{\c&H0018C5F5&}papel{\c&H00FFFFFF&} primordial nessa virada?
+Dialogue: 0,0:00:31.86,0:00:32.62,K,,0,0,0,,papel {\c&H0018C5F5&}primordial{\c&H00FFFFFF&} nessa virada?
+Dialogue: 0,0:00:32.62,0:00:33.04,K,,0,0,0,,papel primordial {\c&H0018C5F5&}nessa{\c&H00FFFFFF&} virada?
+Dialogue: 0,0:00:33.04,0:00:33.66,K,,0,0,0,,papel primordial nessa {\c&H0018C5F5&}virada?{\c&H00FFFFFF&}
+Dialogue: 0,0:00:33.66,0:00:34.19,K,,0,0,0,,{\c&H0018C5F5&}Eles{\c&H00FFFFFF&} deram voz a
+Dialogue: 0,0:00:34.19,0:00:34.82,K,,0,0,0,,Eles {\c&H0018C5F5&}deram{\c&H00FFFFFF&} voz a
+Dialogue: 0,0:00:34.82,0:00:35.24,K,,0,0,0,,Eles deram {\c&H0018C5F5&}voz{\c&H00FFFFFF&} a
+Dialogue: 0,0:00:35.24,0:00:35.45,K,,0,0,0,,Eles deram voz {\c&H0018C5F5&}a{\c&H00FFFFFF&}
+Dialogue: 0,0:00:35.45,0:00:35.98,K,,0,0,0,,{\c&H0018C5F5&}quem{\c&H00FFFFFF&} não tinha.
+Dialogue: 0,0:00:35.98,0:00:36.40,K,,0,0,0,,quem {\c&H0018C5F5&}não{\c&H00FFFFFF&} tinha.
+Dialogue: 0,0:00:36.40,0:00:37.33,K,,0,0,0,,quem não {\c&H0018C5F5&}tinha.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:37.33,0:00:37.54,K,,0,0,0,,{\c&H0018C5F5&}Eles{\c&H00FFFFFF&} fizeram pessoas vir
+Dialogue: 0,0:00:37.54,0:00:37.88,K,,0,0,0,,Eles {\c&H0018C5F5&}fizeram{\c&H00FFFFFF&} pessoas vir
+Dialogue: 0,0:00:37.88,0:00:38.21,K,,0,0,0,,Eles fizeram {\c&H0018C5F5&}pessoas{\c&H00FFFFFF&} vir
+Dialogue: 0,0:00:38.21,0:00:38.38,K,,0,0,0,,Eles fizeram pessoas {\c&H0018C5F5&}vir{\c&H00FFFFFF&}
+Dialogue: 0,0:00:38.38,0:00:38.93,K,,0,0,0,,{\c&H0018C5F5&}participar.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:38.93,0:00:39.18,K,,0,0,0,,{\c&H0018C5F5&}Eu{\c&H00FFFFFF&} mesmo não tinha
+Dialogue: 0,0:00:39.18,0:00:39.68,K,,0,0,0,,Eu {\c&H0018C5F5&}mesmo{\c&H00FFFFFF&} não tinha
+Dialogue: 0,0:00:39.68,0:00:40.01,K,,0,0,0,,Eu mesmo {\c&H0018C5F5&}não{\c&H00FFFFFF&} tinha
+Dialogue: 0,0:00:40.01,0:00:40.51,K,,0,0,0,,Eu mesmo não {\c&H0018C5F5&}tinha{\c&H00FFFFFF&}
+Dialogue: 0,0:00:40.51,0:00:40.92,K,,0,0,0,,{\c&H0018C5F5&}rede{\c&H00FFFFFF&} social com esse
+Dialogue: 0,0:00:40.92,0:00:41.51,K,,0,0,0,,rede {\c&H0018C5F5&}social{\c&H00FFFFFF&} com esse
+Dialogue: 0,0:00:41.51,0:00:41.84,K,,0,0,0,,rede social {\c&H0018C5F5&}com{\c&H00FFFFFF&} esse
+Dialogue: 0,0:00:41.84,0:00:42.25,K,,0,0,0,,rede social com {\c&H0018C5F5&}esse{\c&H00FFFFFF&}
+Dialogue: 0,0:00:42.25,0:00:43.00,K,,0,0,0,,{\c&H0018C5F5&}intuito,{\c&H00FFFFFF&} e me senti
+Dialogue: 0,0:00:43.00,0:00:43.17,K,,0,0,0,,intuito, {\c&H0018C5F5&}e{\c&H00FFFFFF&} me senti
+Dialogue: 0,0:00:43.17,0:00:43.42,K,,0,0,0,,intuito, e {\c&H0018C5F5&}me{\c&H00FFFFFF&} senti
+Dialogue: 0,0:00:43.42,0:00:43.92,K,,0,0,0,,intuito, e me {\c&H0018C5F5&}senti{\c&H00FFFFFF&}
+Dialogue: 0,0:00:43.92,0:00:44.79,K,,0,0,0,,{\c&H0018C5F5&}convocado{\c&H00FFFFFF&}
+Dialogue: 0,0:00:44.79,0:00:45.07,K,,0,0,0,,{\c&H0018C5F5&}a{\c&H00FFFFFF&} tá nessa batalha,
+Dialogue: 0,0:00:45.07,0:00:45.49,K,,0,0,0,,a {\c&H0018C5F5&}tá{\c&H00FFFFFF&} nessa batalha,
+Dialogue: 0,0:00:45.49,0:00:46.33,K,,0,0,0,,a tá {\c&H0018C5F5&}nessa{\c&H00FFFFFF&} batalha,
+Dialogue: 0,0:00:46.33,0:00:47.60,K,,0,0,0,,a tá nessa {\c&H0018C5F5&}batalha,{\c&H00FFFFFF&}
+Dialogue: 0,0:00:47.60,0:00:47.88,K,,0,0,0,,{\c&H0018C5F5&}e{\c&H00FFFFFF&} conversar com vocês.
+Dialogue: 0,0:00:47.88,0:00:48.39,K,,0,0,0,,e {\c&H0018C5F5&}conversar{\c&H00FFFFFF&} com vocês.
+Dialogue: 0,0:00:48.39,0:00:48.95,K,,0,0,0,,e conversar {\c&H0018C5F5&}com{\c&H00FFFFFF&} vocês.
+Dialogue: 0,0:00:48.95,0:00:50.10,K,,0,0,0,,e conversar com {\c&H0018C5F5&}vocês.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:50.10,0:00:50.25,K,,0,0,0,,{\c&H0018C5F5&}Então{\c&H00FFFFFF&} assim, vai ser
+Dialogue: 0,0:00:50.98,0:00:50.98,K,,0,0,0,,Então {\c&H0018C5F5&}assim,{\c&H00FFFFFF&} vai ser
+Dialogue: 0,0:00:50.98,0:00:51.13,K,,0,0,0,,Então assim, {\c&H0018C5F5&}vai{\c&H00FFFFFF&} ser
+Dialogue: 0,0:00:51.70,0:00:51.72,K,,0,0,0,,{\c&H0018C5F5&}muito{\c&H00FFFFFF&} importante a arte
+Dialogue: 0,0:00:51.72,0:00:52.88,K,,0,0,0,,muito {\c&H0018C5F5&}importante{\c&H00FFFFFF&} a arte
+Dialogue: 0,0:00:52.88,0:00:53.09,K,,0,0,0,,muito importante {\c&H0018C5F5&}a{\c&H00FFFFFF&} arte
+Dialogue: 0,0:00:53.09,0:00:53.62,K,,0,0,0,,muito importante a {\c&H0018C5F5&}arte{\c&H00FFFFFF&}
+Dialogue: 0,0:00:53.62,0:00:54.36,K,,0,0,0,,{\c&H0018C5F5&}nesses{\c&H00FFFFFF&} próximos anos pra
+Dialogue: 0,0:00:54.36,0:00:55.28,K,,0,0,0,,nesses {\c&H0018C5F5&}próximos{\c&H00FFFFFF&} anos pra
+Dialogue: 0,0:00:55.28,0:00:55.83,K,,0,0,0,,nesses próximos {\c&H0018C5F5&}anos{\c&H00FFFFFF&} pra
+Dialogue: 0,0:00:55.83,0:00:55.87,K,,0,0,0,,nesses próximos anos {\c&H0018C5F5&}pra{\c&H00FFFFFF&}
+Dialogue: 0,0:00:55.87,0:00:56.37,K,,0,0,0,,{\c&H0018C5F5&}poder{\c&H00FFFFFF&} condensar esse movimento
+Dialogue: 0,0:00:56.37,0:00:56.93,K,,0,0,0,,poder condensar {\c&H0018C5F5&}esse{\c&H00FFFFFF&} movimento
+Dialogue: 0,0:00:56.93,0:00:58.03,K,,0,0,0,,poder condensar esse {\c&H0018C5F5&}movimento{\c&H00FFFFFF&}
+Dialogue: 0,0:00:58.03,0:00:59.33,K,,0,0,0,,{\c&H0018C5F5&}político.{\c&H00FFFFFF&}
+Dialogue: 0,0:00:59.33,0:00:59.89,K,,0,0,0,,{\c&H0018C5F5&}Aliás,{\c&H00FFFFFF&} nunca se esqueçam:
+Dialogue: 0,0:00:59.89,0:01:00.04,K,,0,0,0,,Aliás, {\c&H0018C5F5&}nunca{\c&H00FFFFFF&} se esqueçam:
+Dialogue: 0,0:01:00.60,0:01:00.62,K,,0,0,0,,Aliás, nunca se {\c&H0018C5F5&}esqueçam:{\c&H00FFFFFF&}
+Dialogue: 0,0:01:00.62,0:01:01.37,K,,0,0,0,,{\c&H0018C5F5&}política{\c&H00FFFFFF&} se discute sim,
+Dialogue: 0,0:01:01.37,0:01:01.62,K,,0,0,0,,política {\c&H0018C5F5&}se{\c&H00FFFFFF&} discute sim,
+Dialogue: 0,0:01:01.62,0:01:02.28,K,,0,0,0,,política se {\c&H0018C5F5&}discute{\c&H00FFFFFF&} sim,
+Dialogue: 0,0:01:02.28,0:01:02.69,K,,0,0,0,,política se discute {\c&H0018C5F5&}sim,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:02.69,0:01:02.86,K,,0,0,0,,{\c&H0018C5F5&}e{\c&H00FFFFFF&} não
+Dialogue: 0,0:01:02.86,0:01:03.25,K,,0,0,0,,e {\c&H0018C5F5&}não{\c&H00FFFFFF&}
+Dialogue: 0,0:01:03.25,0:01:03.34,K,,0,0,0,,{\c&H0018C5F5&}é{\c&H00FFFFFF&} só de quatro
+Dialogue: 0,0:01:03.34,0:01:03.47,K,,0,0,0,,é {\c&H0018C5F5&}só{\c&H00FFFFFF&} de quatro
+Dialogue: 0,0:01:03.47,0:01:03.60,K,,0,0,0,,é só {\c&H0018C5F5&}de{\c&H00FFFFFF&} quatro
+Dialogue: 0,0:01:03.60,0:01:03.91,K,,0,0,0,,é só de {\c&H0018C5F5&}quatro{\c&H00FFFFFF&}
+Dialogue: 0,0:01:03.91,0:01:04.04,K,,0,0,0,,{\c&H0018C5F5&}em{\c&H00FFFFFF&} quatro anos, nem
+Dialogue: 0,0:01:04.04,0:01:04.35,K,,0,0,0,,em {\c&H0018C5F5&}quatro{\c&H00FFFFFF&} anos, nem
+Dialogue: 0,0:01:04.35,0:01:04.61,K,,0,0,0,,em quatro {\c&H0018C5F5&}anos,{\c&H00FFFFFF&} nem
+Dialogue: 0,0:01:04.61,0:01:04.79,K,,0,0,0,,em quatro anos, {\c&H0018C5F5&}nem{\c&H00FFFFFF&}
+Dialogue: 0,0:01:04.79,0:01:04.92,K,,0,0,0,,{\c&H0018C5F5&}de{\c&H00FFFFFF&} dois em dois,
+Dialogue: 0,0:01:04.92,0:01:05.14,K,,0,0,0,,de {\c&H0018C5F5&}dois{\c&H00FFFFFF&} em dois,
+Dialogue: 0,0:01:05.14,0:01:05.27,K,,0,0,0,,de dois {\c&H0018C5F5&}em{\c&H00FFFFFF&} dois,
+Dialogue: 0,0:01:05.27,0:01:05.53,K,,0,0,0,,de dois em {\c&H0018C5F5&}dois,{\c&H00FFFFFF&}
+Dialogue: 0,0:01:05.53,0:01:05.79,K,,0,0,0,,{\c&H0018C5F5&}não.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:05.79,0:01:06.91,K,,0,0,0,,{\c&H0018C5F5&}Política{\c&H00FFFFFF&} se discute todo
+Dialogue: 0,0:01:06.91,0:01:07.12,K,,0,0,0,,Política {\c&H0018C5F5&}se{\c&H00FFFFFF&} discute todo
+Dialogue: 0,0:01:07.12,0:01:07.68,K,,0,0,0,,Política se {\c&H0018C5F5&}discute{\c&H00FFFFFF&} todo
+Dialogue: 0,0:01:07.68,0:01:08.02,K,,0,0,0,,Política se discute {\c&H0018C5F5&}todo{\c&H00FFFFFF&}
+Dialogue: 0,0:01:08.02,0:01:08.56,K,,0,0,0,,{\c&H0018C5F5&}dia.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:08.56,0:01:09.02,K,,0,0,0,,{\c&H0018C5F5&}Agora{\c&H00FFFFFF&} me diz você:
+Dialogue: 0,0:01:09.02,0:01:09.25,K,,0,0,0,,Agora {\c&H0018C5F5&}me{\c&H00FFFFFF&} diz você:
+Dialogue: 0,0:01:09.25,0:01:09.54,K,,0,0,0,,Agora me {\c&H0018C5F5&}diz{\c&H00FFFFFF&} você:
+Dialogue: 0,0:01:09.54,0:01:09.70,K,,0,0,0,,Agora me diz {\c&H0018C5F5&}você:{\c&H00FFFFFF&}
+Dialogue: 0,0:01:09.70,0:01:09.72,K,,0,0,0,,{\c&H0018C5F5&}que{\c&H00FFFFFF&} que cê queria
+Dialogue: 0,0:01:09.72,0:01:10.03,K,,0,0,0,,que {\c&H0018C5F5&}que{\c&H00FFFFFF&} cê queria
+Dialogue: 0,0:01:10.03,0:01:10.26,K,,0,0,0,,que que {\c&H0018C5F5&}cê{\c&H00FFFFFF&} queria
+Dialogue: 0,0:01:10.26,0:01:10.80,K,,0,0,0,,que que cê {\c&H0018C5F5&}queria{\c&H00FFFFFF&}
+Dialogue: 0,0:01:10.80,0:01:11.26,K,,0,0,0,,{\c&H0018C5F5&}fazer{\c&H00FFFFFF&} nesses próximos dias?
+Dialogue: 0,0:01:11.26,0:01:11.80,K,,0,0,0,,fazer {\c&H0018C5F5&}nesses{\c&H00FFFFFF&} próximos dias?
+Dialogue: 0,0:01:11.80,0:01:12.49,K,,0,0,0,,fazer nesses {\c&H0018C5F5&}próximos{\c&H00FFFFFF&} dias?
+Dialogue: 0,0:01:12.49,0:01:13.14,K,,0,0,0,,fazer nesses próximos {\c&H0018C5F5&}dias?{\c&H00FFFFFF&}
+Dialogue: 0,0:01:13.14,0:01:13.36,K,,0,0,0,,{\c&H0018C5F5&}Que{\c&H00FFFFFF&} voz que cê
+Dialogue: 0,0:01:13.36,0:01:13.58,K,,0,0,0,,Que {\c&H0018C5F5&}voz{\c&H00FFFFFF&} que cê
+Dialogue: 0,0:01:13.58,0:01:13.80,K,,0,0,0,,Que voz {\c&H0018C5F5&}que{\c&H00FFFFFF&} cê
+Dialogue: 0,0:01:13.80,0:01:13.96,K,,0,0,0,,Que voz que {\c&H0018C5F5&}cê{\c&H00FFFFFF&}
+Dialogue: 0,0:01:13.96,0:01:14.46,K,,0,0,0,,{\c&H0018C5F5&}gostaria{\c&H00FFFFFF&} de falar pro
+Dialogue: 0,0:01:14.46,0:01:14.62,K,,0,0,0,,gostaria {\c&H0018C5F5&}de{\c&H00FFFFFF&} falar pro
+Dialogue: 0,0:01:14.62,0:01:14.95,K,,0,0,0,,gostaria de {\c&H0018C5F5&}falar{\c&H00FFFFFF&} pro
+Dialogue: 0,0:01:14.95,0:01:15.17,K,,0,0,0,,gostaria de falar {\c&H0018C5F5&}pro{\c&H00FFFFFF&}
+Dialogue: 0,0:01:15.17,0:01:15.50,K,,0,0,0,,{\c&H0018C5F5&}mundo{\c&H00FFFFFF&} que você ainda
+Dialogue: 0,0:01:15.50,0:01:15.72,K,,0,0,0,,mundo {\c&H0018C5F5&}que{\c&H00FFFFFF&} você ainda
+Dialogue: 0,0:01:15.72,0:01:15.99,K,,0,0,0,,mundo que {\c&H0018C5F5&}você{\c&H00FFFFFF&} ainda
+Dialogue: 0,0:01:15.99,0:01:16.32,K,,0,0,0,,mundo que você {\c&H0018C5F5&}ainda{\c&H00FFFFFF&}
+Dialogue: 0,0:01:16.32,0:01:16.54,K,,0,0,0,,{\c&H0018C5F5&}não{\c&H00FFFFFF&} falou?
+Dialogue: 0,0:01:16.54,0:01:17.11,K,,0,0,0,,não {\c&H0018C5F5&}falou?{\c&H00FFFFFF&}
+Dialogue: 0,0:01:17.11,0:01:17.49,K,,0,0,0,,{\c&H0018C5F5&}Escreve{\c&H00FFFFFF&} aí ou me
+Dialogue: 0,0:01:17.49,0:01:17.64,K,,0,0,0,,Escreve {\c&H0018C5F5&}aí{\c&H00FFFFFF&} ou me
+Dialogue: 0,0:01:17.64,0:01:17.78,K,,0,0,0,,Escreve aí {\c&H0018C5F5&}ou{\c&H00FFFFFF&} me
+Dialogue: 0,0:01:17.78,0:01:17.92,K,,0,0,0,,Escreve aí ou {\c&H0018C5F5&}me{\c&H00FFFFFF&}
+Dialogue: 0,0:01:17.92,0:01:18.21,K,,0,0,0,,{\c&H0018C5F5&}manda{\c&H00FFFFFF&} mensagem.
+Dialogue: 0,0:01:18.21,0:01:18.88,K,,0,0,0,,manda {\c&H0018C5F5&}mensagem.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:18.88,0:01:19.11,K,,0,0,0,,{\c&H0018C5F5&}Ah,{\c&H00FFFFFF&} e não vamo
+Dialogue: 0,0:01:19.11,0:01:19.43,K,,0,0,0,,Ah, {\c&H0018C5F5&}e{\c&H00FFFFFF&} não vamo
+Dialogue: 0,0:01:19.43,0:01:19.45,K,,0,0,0,,Ah, e não {\c&H0018C5F5&}vamo{\c&H00FFFFFF&}
+Dialogue: 0,0:01:19.45,0:01:19.89,K,,0,0,0,,{\c&H0018C5F5&}deixar{\c&H00FFFFFF&} nem o café
+Dialogue: 0,0:01:19.89,0:01:20.14,K,,0,0,0,,deixar {\c&H0018C5F5&}nem{\c&H00FFFFFF&} o café
+Dialogue: 0,0:01:20.14,0:01:20.26,K,,0,0,0,,deixar nem {\c&H0018C5F5&}o{\c&H00FFFFFF&} café
+Dialogue: 0,0:01:20.26,0:01:20.57,K,,0,0,0,,deixar nem o {\c&H0018C5F5&}café{\c&H00FFFFFF&}
+Dialogue: 0,0:01:20.57,0:01:20.69,K,,0,0,0,,{\c&H0018C5F5&}e{\c&H00FFFFFF&} nem a nossa
+Dialogue: 0,0:01:20.69,0:01:20.94,K,,0,0,0,,e {\c&H0018C5F5&}nem{\c&H00FFFFFF&} a nossa
+Dialogue: 0,0:01:20.94,0:01:21.07,K,,0,0,0,,e nem {\c&H0018C5F5&}a{\c&H00FFFFFF&} nossa
+Dialogue: 0,0:01:21.07,0:01:21.44,K,,0,0,0,,e nem a {\c&H0018C5F5&}nossa{\c&H00FFFFFF&}
+Dialogue: 0,0:01:21.44,0:01:21.75,K,,0,0,0,,{\c&H0018C5F5&}luta{\c&H00FFFFFF&} esfriar.
+Dialogue: 0,0:01:21.75,0:01:22.49,K,,0,0,0,,luta {\c&H0018C5F5&}esfriar.{\c&H00FFFFFF&}
+Dialogue: 0,0:01:22.49,0:01:22.79,K,,0,0,0,,{\c&H0018C5F5&}Bora.{\c&H00FFFFFF&}

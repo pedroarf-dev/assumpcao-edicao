@@ -1,0 +1,28 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 720
+PlayResY: 1280
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: P,Inter Medium,56,&H00121212,&H00121212,&H001AC4F6,&H001AC4F6,0,0,0,0,100,100,0,0,3,7,0,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.15,0:00:01.11,P,,0,0,0,,{\an5\pos(272,1185)\frz-1.8}parece
+Dialogue: 0,0:00:00.15,0:00:01.11,P,,0,0,0,,{\an5\pos(391,1185)\frz1.7}que
+Dialogue: 0,0:00:00.15,0:00:01.11,P,,0,0,0,,{\an5\pos(479,1185)\frz1.3}são
+Dialogue: 0,0:00:01.11,0:00:02.08,P,,0,0,0,,{\an5\pos(208,1185)\frz-1.2}mundos
+Dialogue: 0,0:00:01.11,0:00:02.08,P,,0,0,0,,{\an5\pos(396,1185)\frz-0.0}diferentes
+Dialogue: 0,0:00:01.11,0:00:02.08,P,,0,0,0,,{\an5\pos(548,1185)\frz-0.3}mas
+Dialogue: 0,0:00:02.08,0:00:03.04,P,,0,0,0,,{\an5\pos(266,1185)\frz0.8}todas
+Dialogue: 0,0:00:02.08,0:00:03.04,P,,0,0,0,,{\an5\pos(389,1185)\frz1.4}falam
+Dialogue: 0,0:00:02.08,0:00:03.04,P,,0,0,0,,{\an5\pos(482,1185)\frz-2.0}da
+Dialogue: 0,0:00:03.04,0:00:04.00,P,,0,0,0,,{\an5\pos(239,1185)\frz-2.4}mesma
+Dialogue: 0,0:00:03.04,0:00:04.00,P,,0,0,0,,{\an5\pos(376,1185)\frz1.7}coisa
+Dialogue: 0,0:00:03.04,0:00:04.00,P,,0,0,0,,{\an5\pos(496,1185)\frz-0.3}como
+Dialogue: 0,0:00:04.00,0:00:04.97,P,,0,0,0,,{\an5\pos(249,1185)\frz1.3}a
+Dialogue: 0,0:00:04.00,0:00:04.97,P,,0,0,0,,{\an5\pos(333,1185)\frz-2.5}gente
+Dialogue: 0,0:00:04.00,0:00:04.97,P,,0,0,0,,{\an5\pos(443,1185)\frz-0.3}vive
+Dialogue: 0,0:00:04.97,0:00:05.29,P,,0,0,0,,{\an5\pos(360,1185)\frz1.1}junto

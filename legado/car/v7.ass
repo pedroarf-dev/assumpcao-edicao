@@ -1,0 +1,39 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 720
+PlayResY: 1280
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: P,Inter Medium,56,&H00121212,&H00121212,&H001AC4F6,&H001AC4F6,0,0,0,0,100,100,0,0,3,7,0,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.20,0:00:00.78,P,,0,0,0,,{\an5\pos(360,1185)\frz-0.9}juntas
+Dialogue: 0,0:00:00.78,0:00:01.93,P,,0,0,0,,{\an5\pos(317,1185)\frz-1.7}viram
+Dialogue: 0,0:00:00.78,0:00:01.93,P,,0,0,0,,{\an5\pos(421,1185)\frz0.8}voz
+Dialogue: 0,0:00:02.18,0:00:02.94,P,,0,0,0,,{\an5\pos(305,1185)\frz-2.1}e
+Dialogue: 0,0:00:02.18,0:00:02.94,P,,0,0,0,,{\an5\pos(381,1185)\frz0.2}você
+Dialogue: 0,0:00:02.94,0:00:04.07,P,,0,0,0,,{\an5\pos(257,1185)\frz-0.7}qual
+Dialogue: 0,0:00:02.94,0:00:04.07,P,,0,0,0,,{\an5\pos(382,1185)\frz-2.2}dessas
+Dialogue: 0,0:00:02.94,0:00:04.07,P,,0,0,0,,{\an5\pos(485,1185)\frz0.0}te
+Dialogue: 0,0:00:04.07,0:00:04.83,P,,0,0,0,,{\an5\pos(307,1185)\frz-2.3}move
+Dialogue: 0,0:00:04.07,0:00:04.83,P,,0,0,0,,{\an5\pos(421,1185)\frz-0.3}mais
+Dialogue: 0,0:00:05.08,0:00:06.10,P,,0,0,0,,{\an5\pos(272,1185)\frz-2.2}me
+Dialogue: 0,0:00:05.08,0:00:06.10,P,,0,0,0,,{\an5\pos(373,1185)\frz-2.0}conta
+Dialogue: 0,0:00:05.08,0:00:06.10,P,,0,0,0,,{\an5\pos(460,1185)\frz-0.4}aí
+Dialogue: 0,0:00:06.35,0:00:06.85,P,,0,0,0,,{\an5\pos(311,1185)\frz1.6}e
+Dialogue: 0,0:00:06.35,0:00:06.85,P,,0,0,0,,{\an5\pos(381,1185)\frz-1.9}olha
+Dialogue: 0,0:00:06.85,0:00:07.61,P,,0,0,0,,{\an5\pos(246,1185)\frz-1.4}bora
+Dialogue: 0,0:00:06.85,0:00:07.61,P,,0,0,0,,{\an5\pos(373,1185)\frz0.6}marcar
+Dialogue: 0,0:00:06.85,0:00:07.61,P,,0,0,0,,{\an5\pos(487,1185)\frz2.2}um
+Dialogue: 0,0:00:07.61,0:00:08.36,P,,0,0,0,,{\an5\pos(295,1185)\frz0.4}café
+Dialogue: 0,0:00:07.61,0:00:08.36,P,,0,0,0,,{\an5\pos(366,1185)\frz-0.5}e
+Dialogue: 0,0:00:07.61,0:00:08.36,P,,0,0,0,,{\an5\pos(431,1185)\frz2.4}não
+Dialogue: 0,0:00:08.36,0:00:09.12,P,,0,0,0,,{\an5\pos(240,1185)\frz-2.3}vamo
+Dialogue: 0,0:00:08.36,0:00:09.12,P,,0,0,0,,{\an5\pos(368,1185)\frz1.8}deixar
+Dialogue: 0,0:00:08.36,0:00:09.12,P,,0,0,0,,{\an5\pos(488,1185)\frz-1.1}essa
+Dialogue: 0,0:00:09.12,0:00:09.62,P,,0,0,0,,{\an5\pos(290,1185)\frz-1.8}luta
+Dialogue: 0,0:00:09.12,0:00:09.62,P,,0,0,0,,{\an5\pos(404,1185)\frz-1.9}esfriar
+Dialogue: 0,0:00:09.62,0:00:09.87,P,,0,0,0,,{\an5\pos(360,1185)\frz-1.0}não

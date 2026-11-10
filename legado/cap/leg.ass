@@ -1,0 +1,47 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 720
+PlayResY: 1280
+WrapStyle: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Poppins Medium,40,&H00FFFFFF,&H00FFFFFF,&H00141414,&H64000000,0,0,0,0,100,100,0,0,1,3,1,2,70,70,330,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.15,0:00:00.93,Default,,0,0,0,,Fala aí, beleza?
+Dialogue: 0,0:00:01.73,0:00:02.29,Default,,0,0,0,,Não passa não.
+Dialogue: 0,0:00:03.11,0:00:04.07,Default,,0,0,0,,Vamo tomar um cafezinho.
+Dialogue: 0,0:00:04.91,0:00:07.73,Default,,0,0,0,,Então, viu a notícia?
+Dialogue: 0,0:00:09.15,0:00:12.03,Default,,0,0,0,,Sabe aquele cara lá do... que perdeu?
+Dialogue: 0,0:00:12.85,0:00:15.50,Default,,0,0,0,,Então, Alexandre de Moraes pediu,
+Dialogue: 0,0:00:15.50,0:00:18.15,Default,,0,0,0,,né, o passaporte dele, que ele tá
+Dialogue: 0,0:00:18.19,0:00:19.99,Default,,0,0,0,,envolvido em vários crimes, né?
+Dialogue: 0,0:00:21.07,0:00:23.73,Default,,0,0,0,,E o cara não entregou e fugiu.
+Dialogue: 0,0:00:23.73,0:00:25.13,Default,,0,0,0,,Agora a gente já sabe que ele fugiu.
+Dialogue: 0,0:00:25.71,0:00:26.67,Default,,0,0,0,,Mas sabe o que que é doideira?
+Dialogue: 0,0:00:27.37,0:00:29.80,Default,,0,0,0,,Cara, durante muito tempo eu trabalhei,
+Dialogue: 0,0:00:29.80,0:00:32.15,Default,,0,0,0,,eu sou psicólogo e trabalhei na área social.
+Dialogue: 0,0:00:33.35,0:00:35.60,Default,,0,0,0,,Trabalhei com criança e adolescente
+Dialogue: 0,0:00:35.60,0:00:37.93,Default,,0,0,0,,em conflito com a lei, trabalhei com
+Dialogue: 0,0:00:37.99,0:00:40.73,Default,,0,0,0,,crianças abrigadas, com pessoas pobres.
+Dialogue: 0,0:00:41.89,0:00:45.93,Default,,0,0,0,,E cara, eles não tinham essa opção de fugir.
+Dialogue: 0,0:00:47.61,0:00:48.93,Default,,0,0,0,,Não tinha isso, sabe?
+Dialogue: 0,0:00:49.73,0:00:53.60,Default,,0,0,0,,É muito estranho ter uma pessoa
+Dialogue: 0,0:00:53.60,0:00:57.45,Default,,0,0,0,,com um discurso de que é pelo povo,
+Dialogue: 0,0:00:57.49,0:01:01.10,Default,,0,0,0,,é pela pátria e, cara,
+Dialogue: 0,0:01:01.10,0:01:04.67,Default,,0,0,0,,não encarar as consequências
+Dialogue: 0,0:01:05.27,0:01:07.01,Default,,0,0,0,,do que tá pela frente.
+Dialogue: 0,0:01:08.15,0:01:11.90,Default,,0,0,0,,É, cara, de novo, não se trata
+Dialogue: 0,0:01:11.90,0:01:15.71,Default,,0,0,0,,de sigla ou números,
+Dialogue: 0,0:01:16.67,0:01:19.60,Default,,0,0,0,,se trata daquilo que realmente é,
+Dialogue: 0,0:01:19.60,0:01:22.59,Default,,0,0,0,,a vida do povo, é vida de verdade.
+Dialogue: 0,0:01:22.81,0:01:26.03,Default,,0,0,0,,Assim, eu, você, se a gente tem um problema pra encarar,
+Dialogue: 0,0:01:26.07,0:01:29.25,Default,,0,0,0,,a gente não pode pegar um avião e sair correndo, e vamo fugir.
+Dialogue: 0,0:01:29.39,0:01:31.85,Default,,0,0,0,,Não, tem que encarar.
+Dialogue: 0,0:01:32.69,0:01:37.19,Default,,0,0,0,,Se aconteceu, "ah, é tudo mentira", põe a cara.
+Dialogue: 0,0:01:37.65,0:01:39.15,Default,,0,0,0,,Porra, o outro cara lá fez isso.
+Dialogue: 0,0:01:39.19,0:01:42.45,Default,,0,0,0,,Então assim, cara, é muito estranho, né?
+Dialogue: 0,0:01:42.97,0:01:43.51,Default,,0,0,0,,Mas é isso.
+Dialogue: 0,0:01:43.77,0:01:46.60,Default,,0,0,0,,Não vamo deixar o café esfriar não.

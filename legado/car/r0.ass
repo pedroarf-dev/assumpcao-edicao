@@ -1,0 +1,19 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 720
+PlayResY: 1280
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: P,Inter Medium,56,&H00F4FAFC,&H00F4FAFC,&H00141414,&H00141414,0,0,0,0,100,100,0,0,3,7,0,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.15,0:00:00.69,P,,0,0,0,,{\an5\pos(283,1185)\frz1.7}pera
+Dialogue: 0,0:00:00.15,0:00:00.69,P,,0,0,0,,{\an5\pos(360,1185)\frz1.3}aí
+Dialogue: 0,0:00:00.15,0:00:00.69,P,,0,0,0,,{\an5\pos(437,1185)\frz-0.4}pera
+Dialogue: 0,0:00:00.69,0:00:01.22,P,,0,0,0,,{\an5\pos(251,1185)\frz-1.2}aí
+Dialogue: 0,0:00:00.69,0:00:01.22,P,,0,0,0,,{\an5\pos(321,1185)\frz0.1}não
+Dialogue: 0,0:00:00.69,0:00:01.22,P,,0,0,0,,{\an5\pos(430,1185)\frz-0.5}passa
+Dialogue: 0,0:00:01.22,0:00:01.40,P,,0,0,0,,{\an5\pos(360,1185)\frz1.4}não

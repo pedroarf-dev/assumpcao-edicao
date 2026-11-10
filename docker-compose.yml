@@ -1,0 +1,19 @@
+services:
+  editor:
+    build:
+      context: https://github.com/pedroarf-dev/assumpcao-edicao.git#main
+      args:
+        WHISPER_MODEL: small
+    container_name: assumpcao-editor
+    restart: unless-stopped
+    environment:
+      - INTERVALO=60
+      - CORTE_MARGEM=0.25s,0.35s
+      - MARCA=/dados/marca
+    volumes:
+      - /opt/assumpcao/dados:/dados
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 3g
