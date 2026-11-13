@@ -81,7 +81,7 @@ def plano(versao):
             if sid in FIXO_PRINCIPAL: c = "principal"
             else:
                 c = cam
-                if shot >= 4.5: c = "apoio" if cam == "principal" else "principal"
+                if shot >= 4.5: c = "zoom" if cam == "principal" else "principal"
             if c != cam: shot = 0.0
             cam = c; d = e - s
             clips.append({"sid": sid, "a": s, "b": e, "cam": c, "o": t}); t += d; shot += d
@@ -130,21 +130,21 @@ def ass(clips, dur, caminho):
     seg = [c for c in clips if c["sid"] == "basquiat"]
     if seg:
         s0, s1 = seg[0]["o"], seg[-1]["o"] + seg[-1]["b"] - seg[-1]["a"]
-        L.append(f"Dialogue: 1,{ts(s0)},{ts(s1)},R,,0,0,0,,{{\\pos(540,250)\\fad(200,200)}}BASQUIAT · UNTITLED (1982)")
+        L.append(f"Dialogue: 1,{ts(s0)},{ts(s1)},R,,0,0,0,,{{\\pos(540,170)\\fad(200,200)}}BASQUIAT · UNTITLED (1982)")
         w19 = achar("19", s0) or (s0 + 3, s0 + 3.3); w17 = achar("2017", s0) or (s0 + 7, s0 + 7.3); wme = achar("meio", w17[0]) or (w17[0] + 3, w17[0] + 3.3)
-        L.append(f"Dialogue: 1,{ts(w19[0])},{ts(w17[0])},R,,0,0,0,,{{\\pos(540,560)}}1984")
-        L.append(f"Dialogue: 2,{ts(w19[0])},{ts(w17[0])},N,,0,0,0,,{{\\pos(540,700)\\fscx40\\fscy40\\t(0,180,\\fscx100\\fscy100)}}US$ 19 mil")
-        L.append(f"Dialogue: 1,{ts(w17[0])},{ts(s1)},R,,0,0,0,,{{\\pos(540,560)}}2017")
+        L.append(f"Dialogue: 1,{ts(w19[0])},{ts(w17[0])},R,,0,0,0,,{{\\pos(540,470)}}1984")
+        L.append(f"Dialogue: 2,{ts(w19[0])},{ts(w17[0])},N,,0,0,0,,{{\\pos(540,330)\\fscx40\\fscy40\\t(0,180,\\fscx100\\fscy100)}}US$ 19 mil")
+        L.append(f"Dialogue: 1,{ts(w17[0])},{ts(s1)},R,,0,0,0,,{{\\pos(540,470)}}2017")
         n = 40; t0, t1 = w17[0], max(wme[1], w17[0] + 1.5)
         for k in range(n):
             f = (k + 1) / n; v = 19e3 * (110.5e6 / 19e3) ** (f ** 0.8)
             txt = f"US$ {v/1e6:.1f} mi".replace(".", ",") if v >= 1e6 else f"US$ {v/1e3:.0f} mil"
             a = t0 + (t1 - t0) * k / n; b = t0 + (t1 - t0) * (k + 1) / n if k < n - 1 else s1
             if k == n - 1: txt = "US$ 110,5 mi"
-            L.append(f"Dialogue: 2,{ts(a)},{ts(b)},N,,0,0,0,,{{\\pos(540,700)}}{txt}")
+            L.append(f"Dialogue: 2,{ts(a)},{ts(b)},N,,0,0,0,,{{\\pos(540,330)}}{txt}")
     # frase destaque: "…um dia fez isso e parou."
     w = achar("parou")
-    if w: L.append(f"Dialogue: 2,{ts(w[0] - 1.6)},{ts(w[1] + 1.2)},D,,0,0,0,,{{\\pos(540,620)\\fad(150,250)}}um dia fez…{{\\N}}e parou.")
+    if w: L.append(f"Dialogue: 2,{ts(w[0] - 1.6)},{ts(w[1] + 1.2)},D,,0,0,0,,{{\\pos(540,340)\\fad(150,250)}}um dia fez…{{\\N}}e parou.")
     # interrogações pulsando na pergunta final
     seg = [c for c in clips if c["sid"] == "pergunta"]
     if seg:
@@ -160,12 +160,15 @@ def render(versao):
     print(f"VERSAO {versao}: {len(clips)} cortes, {dur:.1f}s; câmeras:", " ".join(c['cam'][0] for c in clips), flush=True)
     lst = TMP / f"lista_{versao}.txt"; linhas = []
     for i, c in enumerate(clips):
-        seg = TMP / f"{versao}_{i:03d}.mp4"; d = c["b"] - c["a"]
-        tv = c["a"] - OFF[c["cam"]]; ta = c["a"] - OFF[AUD]
+        seg = TMP / f"v2_{versao}_{i:03d}.mp4"; d = c["b"] - c["a"]
+        fonte = "principal" if c["cam"] == "zoom" else c["cam"]
+        tv = c["a"] - OFF[fonte]; ta = c["a"] - OFF[AUD]
+        vf = ("scale=1210:2150,crop=1080:1920:(iw-1080)/2:(ih-1920)*0.30" if c["cam"] == "zoom"
+              else "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920")
         if not seg.exists():
-            sh("ffmpeg", "-y", "-v", "error", "-ss", f"{tv:.3f}", "-i", SRC[c["cam"]], "-ss", f"{ta:.3f}", "-i", SRC[AUD], "-t", f"{d:.3f}",
+            sh("ffmpeg", "-y", "-v", "error", "-ss", f"{tv:.3f}", "-i", SRC[fonte], "-ss", f"{ta:.3f}", "-i", SRC[AUD], "-t", f"{d:.3f}",
                "-map", "0:v:0", "-map", "1:a:0",
-               "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30,format=yuv420p",
+               "-vf", vf + ",setsar=1,fps=30,format=yuv420p",
                "-af", "aresample=48000,aformat=channel_layouts=mono", "-c:v", "libx264", "-preset", "veryfast", "-crf", "17",
                "-c:a", "pcm_s16le", "-f", "mov", seg)
         linhas.append(f"file '{seg}'")
@@ -193,7 +196,7 @@ def render(versao):
         fc += f";[2:v]scale=260:-1[ass];[v0][ass]overlay=x=W-w-70:y=H-h-300:eof_action=pass[v1]"
         ultimo = "[v1]"
     sh("ffmpeg", "-y", "-v", "error", *entradas, "-filter_complex", fc, "-map", ultimo, "-map", mapa_a,
-       "-t", f"{dur:.2f}", "-c:v", "libx264", "-preset", "medium", "-crf", "22", "-maxrate", "3000k", "-bufsize", "6000k",
+       "-t", f"{dur:.2f}", "-c:v", "libx264", "-preset", "medium", "-crf", "22", "-maxrate", "2600k", "-bufsize", "5200k",
        "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-movflags", "+faststart", final)
     # medidas + quadros para a nota
     ebu = out("ffmpeg", "-hide_banner", "-nostats", "-i", final, "-af", "ebur128", "-f", "null", "-")
@@ -210,6 +213,27 @@ def render(versao):
     print("INFO", json.dumps({k: v for k, v in info.items() if k != "plano"}, ensure_ascii=False), flush=True)
 
 render("A"); render("B")
+
+# ---------- entrega no Telegram (n8n "Entrega de vídeo" lê /dados/entregas/*.json) ----------
+ENT = Path("/dados/entregas"); ENT.mkdir(exist_ok=True)
+AVISO = "Nota calculada a partir da transcrição + medidas (som, duração, cortes) + quadros do vídeo."
+COMUM = ("• Som: muito bom (BOYALINK no Pixel, fundo bem baixo, −14 LUFS).\n"
+         "• Travadas: 3 trechos repetidos → fiquei com o último take; a travada do “experimentar” saiu.\n"
+         "• Enquadramento: só o Pixel (aberto/fechado). O OPPO saiu com vinheta redonda e a lâmpada estourada — ficou de fora.\n"
+         "• Luz: rosto ok, mas chapado; uma luz lateral daria mais volume no P&B.\n"
+         "• Obras: faltam as imagens (Basquiat etc.) — por isso o gancho não tem a obra na tela.")
+RES = {"A": ("7", "• Ritmo: ~2 min, longo para Reel; o café atrasa o “por que você não fez?”. Cortar “Você já deve ter escutado…”, a pergunta repetida e encurtar o Pedrinho → ~80 s."),
+       "B": ("7,5", "• Ritmo: ~2 min, longo para Reel; entra mais rápido que a A. Cortar “Você já deve ter escutado…”, a pergunta repetida e encurtar o Pedrinho → ~80 s.")}
+for v in "AB":
+    info = json.load(open(OUT / f"info_{v}.json"))
+    dst = ENT / f"trial-1311-{v}.mp4"; shutil.copy(OUT / f"Trial qualquer criança faz - {v}.mp4", dst)
+    nota, ritmo = RES[v]
+    resumo = (f"🎬 Trial · Isso aí qualquer criança faz — versão {v} ({'com café' if v == 'A' else 'direto'})\n"
+              f"⏱ {info['dur']:.0f} s · {info['cortes']} cortes · {info['tam_mb']} MB\n\n"
+              f"Nota: {nota}/10\n{ritmo}\n{COMUM}\n\n{AVISO}")
+    json.dump({"arquivo": str(dst), "titulo": "Isso aí qualquer criança faz", "versao": v, "estilo": "especial",
+               "nota": nota.replace(",", "."), "resumo": resumo}, open(ENT / f"trial-1311-{v}.json", "w"), ensure_ascii=False)
+    print("ENTREGA", v, len(resumo), "caracteres", flush=True)
 
 # copia para o Drive (_analises) para conferência
 import docker
