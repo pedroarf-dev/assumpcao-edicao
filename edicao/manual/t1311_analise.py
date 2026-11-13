@@ -24,7 +24,7 @@ for f in glob.glob("/dados/usados/*1311*"):
 import docker
 c = docker.from_env().containers.get("assumpcao-sync")
 def rc(*args):
-    cmd = ['sh', '-c', 'export RCLONE_CONFIG_GDRIVE_TOKEN="{\\"access_token\\":\\"\\",\\"token_type\\":\\"Bearer\\",\\"refresh_token\\":\\"$GDRIVE_REFRESH\\",\\"expiry\\":\\"2000-01-01T00:00:00Z\\"}"; shift; exec rclone "$@"', 'x', *args]
+    cmd = ['sh', '-c', 'export RCLONE_CONFIG_GDRIVE_TOKEN="{\\"access_token\\":\\"\\",\\"token_type\\":\\"Bearer\\",\\"refresh_token\\":\\"$GDRIVE_REFRESH\\",\\"expiry\\":\\"2000-01-01T00:00:00Z\\"}"; exec rclone "$@"', 'x', *args]
     r = c.exec_run(cmd, demux=True); out = (r.output[0] or b"").decode(); err = (r.output[1] or b"").decode()
     if r.exit_code: print("rclone erro", args[:2], err[-300:], flush=True)
     return out
