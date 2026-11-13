@@ -55,7 +55,7 @@ JANELAS = [("gancho", 2.5, 4.8, None), ("escutado", 4.9, 9.9, None), ("cafe", 14
            ("basquiat", 38.5, 53.9, None), ("crianca", 63.5, 74.6, None), ("perguntar", 82.2, 94.3, None),
            ("dahmer", 119.3, 137.5, None), ("talento", 154.5, 166.9, None), ("picasso", 209.5, 222.1, None),
            ("parou", 231.3, 241.3, None), ("pergunta", 246.7, 251.6, None), ("loop", 262.5, 267.1, None)]
-FORA = [(75.9, 79.7), (50.4, 53.9)]   # travadas ("experimentar" e "e se até uma criança faz…")
+FORA = [(75.9, 79.7)]   # travada do "experimentar"
 PRE, POS = 0.10, 0.16
 def frases(versao):
     r = []
@@ -68,6 +68,23 @@ def frases(versao):
     return r
 
 BASTIDOR = []   # v4: Pedro pediu para tirar os dois planos do OPPO
+import wave as _wave
+_wf = _wave.open(str(AN / "principal1311.wav")); _X = np.frombuffer(_wf.readframes(_wf.getnframes()), np.int16).astype(np.float32) / 32768
+def buraco(a, b):
+    """dentro de [a,b] (tempo de referência) acha o trecho mais fraco (hesitação) para cortar; devolve (x, y) ou None"""
+    i0, i1 = int((a - OFF["principal"]) * 16000), int((b - OFF["principal"]) * 16000)
+    e = np.sqrt((_X[i0:i1][: (i1 - i0) // 160 * 160].reshape(-1, 160) ** 2).mean(1))   # 10 ms
+    if len(e) < 25: return None
+    lim = e.max() * 0.35; melhor, ini = None, None
+    for k, v in enumerate(list(e) + [1e9]):
+        if v < lim and ini is None: ini = k
+        elif v >= lim and ini is not None:
+            if k - ini >= 6 and ini > 3 and (melhor is None or k - ini > melhor[1] - melhor[0]): melhor = (ini, k)
+            ini = None
+    if melhor: return (a + melhor[0] / 100 + 0.02, a + melhor[1] / 100 - 0.02)
+    d = b - a                       # sem buraco claro: deixa o "faz" com 0,32 s (tira o meio esticado)
+    return (a + 0.22, b - 0.10) if d > 0.45 else None
+
 def plano(versao):
     clips, t, cam, shot = [], 0.0, "principal", 0.0
     for sid, u in frases(versao):
@@ -75,6 +92,11 @@ def plano(versao):
         if clips and a < clips[-1]["b"]: a = clips[-1]["b"]
         # pedaços: bastidor pelo fim da frase quando ela termina com as palavras-chave
         cortes = [(a, b, None)]
+        if "se até uma criança" in " ".join(w[2] for w in u["w"]).lower():
+            wf = [w for w in u["w"] if w[2].strip(" ,.?!").lower() == "faz"]
+            bz = buraco(wf[-1][0] - 0.02, wf[-1][1] + 0.05) if wf else None
+            print("FAZ", wf[-1] if wf else None, "corte", bz, flush=True)
+            if bz: cortes = [(a, bz[0], None), (bz[1], b, None)]
         txt = " ".join(w[2] for w in u["w"]).lower()
         for chave, c in BASTIDOR:
             if txt.rstrip(" .?!,").endswith(chave):
@@ -141,7 +163,8 @@ def render(versao):
     if not CFR.exists():
         sh("ffmpeg", "-y", "-v", "error", "-i", SRC["principal"], "-vf", "fps=30,scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,format=yuv420p",
            "-af", "aresample=48000:async=1,aformat=channel_layouts=mono", "-c:v", "libx264", "-preset", "veryfast", "-crf", "15", "-g", "30",
-           "-c:a", "pcm_s16le", "-video_track_timescale", "30", CFR)
+           "-c:a", "pcm_s16le", "-video_track_timescale", "30", TMP / "cfr_tmp.mov")
+        os.replace(TMP / "cfr_tmp.mov", CFR)
     # recalcula a linha do tempo com cortes em quadros inteiros
     t = 0.0
     for c in clips:
