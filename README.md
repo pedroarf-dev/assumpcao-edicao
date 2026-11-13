@@ -5,6 +5,9 @@ Robô de edição dos Reels do @assumpcao_pedro (roda no VPS da Hostinger, em Do
 ## O que faz
 Bruto em `/dados/entrada` → corta pausas (Auto-Editor) → transcreve em pt (faster-whisper) → gera `.srt`, `.txt`, `.json`, projeto do Premiere → renderiza versão final com legenda (branca, palavra falada em amarelo #FFCC00) e vinheta (assinatura amarela + som da caneta) → resultado em `/dados/prontos/<nome>/`. O bruto vai para `/dados/usados`.
 
+## Estilos (13/11/2026)
+O bruto só é editado se estiver numa subpasta de `01 Brutos`: `natural`, `padrao` ou `especial`. Vídeo solto em `01 Brutos` fica só guardado. O sync baixa como `<estilo>__<arquivo>` e o pipeline recebe `--estilo` (por enquanto os três usam a mesma edição; a diferença entra nas próximas etapas).
+
 ## Pastas
 - `edicao/` — `pipeline.py` (um vídeo) e `vigia.py` (loop que vigia a entrada)
 - marca (assinatura animada e som) fica fora do repositório, em `/dados/marca` no VPS

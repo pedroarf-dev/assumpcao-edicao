@@ -82,7 +82,10 @@ def fmt(t):
 def transcrever(video, saida_dir, base):
     from faster_whisper import WhisperModel
     modelo = WhisperModel(MODELO, device="cpu", compute_type="int8")
-    segs, _ = modelo.transcribe(str(video), language="pt", word_timestamps=True, vad_filter=True)
+    # mesmas opções anti-alucinação do transcritor do VPS (v2, 12/11)
+    segs, _ = modelo.transcribe(str(video), language="pt", word_timestamps=True, vad_filter=True,
+                                vad_parameters={"min_silence_duration_ms": 500},
+                                condition_on_previous_text=False, hallucination_silence_threshold=2.0)
     segs = list(segs)
     dados = [{"ini": s.start, "fim": s.end, "texto": s.text.strip(),
               "palavras": [{"ini": w.start, "fim": w.end, "p": w.word.strip()} for w in (s.words or [])]}
@@ -159,8 +162,11 @@ def main():
     ap.add_argument("entrada"); ap.add_argument("saida")
     ap.add_argument("--sem-vinheta", action="store_true"); ap.add_argument("--sem-legenda", action="store_true")
     ap.add_argument("--sem-transcricao", action="store_true")
+    ap.add_argument("--estilo", default="padrao", choices=["natural", "padrao", "especial"])
     a = ap.parse_args()
     entrada = Path(a.entrada); base = entrada.stem
+    if "__" in base and base.split("__", 1)[0] in ("natural", "padrao", "especial"):
+        base = base.split("__", 1)[1]   # tira o prefixo de estilo posto pelo sync
     destino = Path(a.saida) / base
     # trabalha numa pasta à parte e só move para "prontos" no fim (o sync não pega arquivo pela metade)
     saida = Path(os.environ.get("TRABALHO", str(Path(a.saida).parent / "trabalho"))) / base
@@ -170,7 +176,7 @@ def main():
     dados = [] if a.sem_transcricao else transcrever(cortado, saida, base)
     renderizar(cortado, dados, saida, base, not a.sem_legenda, not a.sem_vinheta)
     (saida / "PRONTO.txt").write_text(
-        f"bruto: {entrada.name}\nduração bruto: {duracao(entrada):.1f}s\nduração cortado: {duracao(cortado):.1f}s\n",
+        f"bruto: {entrada.name}\nestilo: {a.estilo}\nduração bruto: {duracao(entrada):.1f}s\nduração cortado: {duracao(cortado):.1f}s\n",
         encoding="utf-8")
     for f in list(saida.glob("* - vertical.mp4")) + list(saida.glob("*.ass")):
         f.unlink()   # intermediários
