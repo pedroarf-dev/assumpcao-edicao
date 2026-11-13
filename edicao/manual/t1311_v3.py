@@ -9,7 +9,7 @@ from pathlib import Path
 import numpy as np
 sys.path.insert(0, str(Path(__file__).parent)); import cartao3d
 
-B = Path("/dados/trial1311"); RAW = B / "raw"; AN = B / "an"; OUT = B / "out3"; TMP = B / "tmp3"; OBR = B / "obras"; FONTS = Path("/cache/fonts")
+B = Path("/dados/trial1311"); RAW = B / "raw"; AN = B / "an"; OUT = B / "out4"; TMP = B / "tmp4"; OBR = B / "obras"; FONTS = Path("/cache/fonts")
 for p in (OUT, TMP, OBR): p.mkdir(parents=True, exist_ok=True)
 FR = json.load(open(AN / "frases.json"))
 # correções da legenda (o Whisper ouviu errado)
@@ -55,7 +55,7 @@ JANELAS = [("gancho", 2.5, 4.8, None), ("escutado", 4.9, 9.9, None), ("cafe", 14
            ("basquiat", 38.5, 53.9, None), ("crianca", 63.5, 74.6, None), ("perguntar", 82.2, 94.3, None),
            ("dahmer", 119.3, 137.5, None), ("talento", 154.5, 166.9, None), ("picasso", 209.5, 222.1, None),
            ("parou", 231.3, 241.3, None), ("pergunta", 246.7, 251.6, None), ("loop", 262.5, 267.1, None)]
-FORA = [(75.9, 79.7)]   # travada
+FORA = [(75.9, 79.7), (50.4, 53.9)]   # travadas ("experimentar" e "e se até uma criança faz…")
 PRE, POS = 0.10, 0.16
 def frases(versao):
     r = []
@@ -67,7 +67,7 @@ def frases(versao):
             r.append((sid, u))
     return r
 
-BASTIDOR = [("eu já pensei", "apoio"), ("não era eu", "apoio")]   # olho de peixe, inteiro
+BASTIDOR = []   # v4: Pedro pediu para tirar os dois planos do OPPO
 def plano(versao):
     clips, t, cam, shot = [], 0.0, "principal", 0.0
     for sid, u in frases(versao):
@@ -137,8 +137,26 @@ if not OB["basquiat"] or os.environ.get("DRY"):
 def render(versao):
     clips, dur = plano(versao)
     print(f"VERSAO {versao}: {len(clips)} cortes, {dur:.1f}s;", " ".join(c['cam'][0] for c in clips), flush=True)
+    CFR = TMP / "principal_cfr.mov"
+    if not CFR.exists():
+        sh("ffmpeg", "-y", "-v", "error", "-i", SRC["principal"], "-vf", "fps=30,scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,format=yuv420p",
+           "-af", "aresample=48000:async=1,aformat=channel_layouts=mono", "-c:v", "libx264", "-preset", "veryfast", "-crf", "15", "-g", "30",
+           "-c:a", "pcm_s16le", "-video_track_timescale", "30", CFR)
+    # recalcula a linha do tempo com cortes em quadros inteiros
+    t = 0.0
+    for c in clips:
+        f0 = round((c["a"] - OFF["principal"]) * 30); f1 = round((c["b"] - OFF["principal"]) * 30)
+        c["f0"], c["nf"] = f0, max(1, f1 - f0); c["o"] = t; c["b"] = c["a"] + c["nf"] / 30; t += c["nf"] / 30
+    dur = t
     linhas = []
     for i, c in enumerate(clips):
+        seg = TMP / f"{versao}_{i:03d}.mov"; d = c["nf"] / 30
+        vf = "scale=1210:2150,crop=1080:1920:(iw-1080)/2:(ih-1920)*0.30" if c["cam"] == "zoom" else "null"
+        sh("ffmpeg", "-y", "-v", "error", "-ss", f"{c['f0']/30:.4f}", "-i", CFR, "-frames:v", str(c["nf"]),
+           "-vf", vf + ",setsar=1,format=yuv420p", "-af", f"atrim=0:{d:.4f},apad=whole_dur={d:.4f}", "-t", f"{d:.4f}",
+           "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-c:a", "pcm_s16le", "-video_track_timescale", "30", seg)
+        linhas.append(f"file '{seg}'")
+    for i, c in enumerate([]):
         seg = TMP / f"{versao}_{i:03d}.mov"; d = c["b"] - c["a"]
         fonte = "principal" if c["cam"] == "zoom" else c["cam"]
         tv = c["a"] - OFF[fonte]; ta = c["a"] - OFF["principal"]
@@ -187,7 +205,7 @@ def render(versao):
     rnn = Path("/cache/sh.rnnn")
     af = "highpass=f=80" + (f",arnndn=m='{rnn}':mix=0.7" if rnn.exists() else "") + ",acompressor=threshold=-20dB:ratio=2.5:attack=5:release=150,loudnorm=I=-14:TP=-1.5:LRA=9"
     fc += f";[0:a]{af}[a]"
-    final = OUT / f"Trial qualquer criança faz - {versao} v3.mp4"
+    final = OUT / f"Trial qualquer criança faz - {versao} v4.mp4"
     sh("ffmpeg", "-y", "-v", "error", *entradas, "-filter_complex", fc, "-map", "[vf]", "-map", "[a]", "-t", f"{dur:.2f}",
        "-c:v", "libx264", "-preset", "medium", "-crf", "22", "-maxrate", "2600k", "-bufsize", "5200k", "-pix_fmt", "yuv420p",
        "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", final)
@@ -233,21 +251,21 @@ for v, f in finais.items():
     for s, tx in us: print(f"Q{v} {s:6.1f} | {tx}", flush=True)
 json.dump(REP, open(OUT / "repeticoes.json", "w"), ensure_ascii=False)
 ENT = Path("/dados/entregas"); ENT.mkdir(exist_ok=True)
-NOTA = {"A": ("7,5", "com café", "• Ritmo: 1:45 — o café atrasa a entrada no assunto; para Reel o ideal fica abaixo de 1:30."),
-        "B": ("8", "direto", "• Ritmo: 1:42 — entra mais rápido no assunto; ainda dá para enxugar (ex.: “Você já deve ter escutado…”).")}
+NOTA = {"A": ("7,5", "com café", "• Ritmo: o café atrasa a entrada no assunto; para Reel o ideal fica abaixo de 1:30."),
+        "B": ("8", "direto", "• Ritmo: entra mais rápido no assunto; ainda dá para enxugar (ex.: “Você já deve ter escutado…”).")}
 COMUM = ("• Som: muito bom (BOYALINK, −14 LUFS).\n"
-         "• Travadas/repetições: takes repetidos e a travada saíram; checagem no vídeo final não achou fala repetida.\n"
-         "• Enquadramento: Pixel aberto/fechado; olho de peixe só como bastidor (2 vezes).\n"
+         "• Travadas/repetições: takes repetidos, a travada do “experimentar” e a do “se até uma criança faz” saíram; checagem no vídeo final sem fala repetida.\n"
+         "• Sincronia: cortes refeitos quadro a quadro (o Pixel grava com quadros irregulares e isso desalinhava a boca).\n"
+         "• Enquadramento: só Pixel, aberto/fechado (OPPO fora).\n"
          "• Obras: as 4 no gancho e no fim (pequenas, acima do rosto), Basquiat com contador e Picasso na citação.\n"
-         "• Luz/cor: cor natural (P&B ficou como dúvida no Produção); a lâmpada estoura no plano do bastidor.\n"
-         "• Gancho: rosto + frase + obras no 1º segundo.")
+         "• Luz/cor: cor natural; rosto ok, um pouco chapado.")
 for v in "AB":
     info = json.load(open(OUT / f"info_{v}.json")); nota, tipo, ritmo = NOTA[v]
-    dst = ENT / f"trial-1311-{v}-v3.mp4"; shutil.copy(finais[v], dst)
-    resumo = (f"🎬 Trial · Isso aí qualquer criança faz — {v} ({tipo}) · versão 3\n⏱ {info['dur']:.0f} s · {info['cortes']} cortes\n\n"
+    dst = ENT / f"trial-1311-{v}-v4.mp4"; shutil.copy(finais[v], dst)
+    resumo = (f"🎬 Trial · Isso aí qualquer criança faz — {v} ({tipo}) · versão 4\n⏱ {info['dur']:.0f} s · {info['cortes']} cortes\n\n"
               f"Nota: {nota}/10\n{ritmo}\n{COMUM}\n\nNota calculada a partir da transcrição + medidas + quadros do vídeo.")
-    json.dump({"arquivo": str(dst), "titulo": "Isso aí qualquer criança faz", "versao": f"{v} v3", "estilo": "especial",
-               "nota": nota.replace(",", "."), "resumo": resumo}, open(ENT / f"trial-1311-{v}-v3.json", "w"), ensure_ascii=False)
+    json.dump({"arquivo": str(dst), "titulo": "Isso aí qualquer criança faz", "versao": f"{v} v4", "estilo": "especial",
+               "nota": nota.replace(",", "."), "resumo": resumo}, open(ENT / f"trial-1311-{v}-v4.json", "w"), ensure_ascii=False)
     print("ENTREGA", v, len(resumo), flush=True)
-print("rclone out:", rc("copy", str(OUT), "gdrive:_analises/trial-1311/out3")[0], flush=True)
+print("rclone out:", rc("copy", str(OUT), "gdrive:_analises/trial-1311/out4")[0], flush=True)
 print("FIM-V3", flush=True)
