@@ -232,5 +232,22 @@ for v, f in finais.items():
     print("QC", v, "frases:", len(us), "repetições:", rep, flush=True)
     for s, tx in us: print(f"Q{v} {s:6.1f} | {tx}", flush=True)
 json.dump(REP, open(OUT / "repeticoes.json", "w"), ensure_ascii=False)
+ENT = Path("/dados/entregas"); ENT.mkdir(exist_ok=True)
+NOTA = {"A": ("7,5", "com café", "• Ritmo: 1:45 — o café atrasa a entrada no assunto; para Reel o ideal fica abaixo de 1:30."),
+        "B": ("8", "direto", "• Ritmo: 1:42 — entra mais rápido no assunto; ainda dá para enxugar (ex.: “Você já deve ter escutado…”).")}
+COMUM = ("• Som: muito bom (BOYALINK, −14 LUFS).\n"
+         "• Travadas/repetições: takes repetidos e a travada saíram; checagem no vídeo final não achou fala repetida.\n"
+         "• Enquadramento: Pixel aberto/fechado; olho de peixe só como bastidor (2 vezes).\n"
+         "• Obras: as 4 no gancho e no fim (pequenas, acima do rosto), Basquiat com contador e Picasso na citação.\n"
+         "• Luz/cor: cor natural (P&B ficou como dúvida no Produção); a lâmpada estoura no plano do bastidor.\n"
+         "• Gancho: rosto + frase + obras no 1º segundo.")
+for v in "AB":
+    info = json.load(open(OUT / f"info_{v}.json")); nota, tipo, ritmo = NOTA[v]
+    dst = ENT / f"trial-1311-{v}-v3.mp4"; shutil.copy(finais[v], dst)
+    resumo = (f"🎬 Trial · Isso aí qualquer criança faz — {v} ({tipo}) · versão 3\n⏱ {info['dur']:.0f} s · {info['cortes']} cortes\n\n"
+              f"Nota: {nota}/10\n{ritmo}\n{COMUM}\n\nNota calculada a partir da transcrição + medidas + quadros do vídeo.")
+    json.dump({"arquivo": str(dst), "titulo": "Isso aí qualquer criança faz", "versao": f"{v} v3", "estilo": "especial",
+               "nota": nota.replace(",", "."), "resumo": resumo}, open(ENT / f"trial-1311-{v}-v3.json", "w"), ensure_ascii=False)
+    print("ENTREGA", v, len(resumo), flush=True)
 print("rclone out:", rc("copy", str(OUT), "gdrive:_analises/trial-1311/out3")[0], flush=True)
 print("FIM-V3", flush=True)
