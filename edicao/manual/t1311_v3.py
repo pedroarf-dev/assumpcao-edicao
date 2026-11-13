@@ -48,7 +48,7 @@ def obra(nome):
 OB = {k: obra(k) for k in ("miro", "pollock", "picasso", "basquiat")}
 if not OB["miro"]: OB["miro"] = obra("miró")
 print("OBRAS", OB, flush=True)
-if not OB["basquiat"]: print("FALTA basquiat — parando"); sys.exit(1)
+
 
 # ---------- seleção de frases ----------
 JANELAS = [("gancho", 2.5, 4.8, None), ("escutado", 4.9, 9.9, None), ("cafe", 14.8, 18.5, "A"), ("beleza", 24.3, 29.8, None),
@@ -124,6 +124,14 @@ def achar(ws, p, depois=0):
     for (a, b, x) in ws:
         if a >= depois and p in x.lower(): return a, b
     return None
+
+if not OB["basquiat"] or os.environ.get("DRY"):
+    print("FALTA basquiat" if not OB["basquiat"] else "DRY")
+    for v in "AB":
+        cl, d = plano(v); print(f"PLANO {v}: {len(cl)} cortes, {d:.1f}s")
+        for c in cl: print(f"  {c['o']:6.1f} {c['cam']:9s} {c['sid']:9s} {c['a']:7.2f}-{c['b']:7.2f}")
+        print("  LEG:", " ".join(w[2] for w in palavras(cl, v))[:900])
+    sys.exit(0)
 
 def render(versao):
     clips, dur = plano(versao)
