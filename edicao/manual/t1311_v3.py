@@ -124,7 +124,9 @@ def palavras(clips, versao):
     for sid, u in frases(versao):
         for (a, b, p) in u["w"]:
             o = r2o(clips, (a + b) / 2)
-            if o is not None: r.append((o - (b - a) / 2, o + (b - a) / 2, p))
+            if o is not None: r.append((o - (b - a) / 2, o + (b - a) / 2, p)); continue
+            o = r2o(clips, a + 0.05)
+            if o is not None: r.append((o, o + 0.3, p))
     return r
 
 def ts(x):
