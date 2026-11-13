@@ -158,10 +158,11 @@ def render(versao):
     g = [c for c in clips if c["sid"] == "gancho"]
     if g and flash:
         d = g[-1]["o"] + g[-1]["b"] - g[-1]["a"]
-        f = TMP / f"flash_ini_{versao}.mp4"; cartao3d.gerar(str(f), flash, [d / len(flash)] * len(flash), FONTE, yaw0=-12, yaw1=10)
+        # rosto livre: obras pequenas no alto, acima da cabeça (cartão com transparência)
+        f = TMP / f"flash_ini_{versao}.mov"; cartao3d.gerar(str(f), flash, [d / len(flash)] * len(flash), FONTE, yaw0=-14, yaw1=12,
+                                                           cy=330, maxw=430, maxh=380, transparente=True)
         ins.append((f, 0.0, d))
-        f2 = TMP / f"flash_fim_{versao}.mp4"; cartao3d.gerar(str(f2), flash, [d / len(flash)] * len(flash), FONTE, yaw0=-12, yaw1=10)
-        ins.append((f2, dur - d, dur))
+        ins.append((f, dur - d, dur))
     w0 = achar(ws, "esse") ; wfim = achar(ws, "milhões", (achar(ws, "meio") or (0, 0))[0])
     if w0 and wfim:
         s0, s1 = w0[0] - 0.15, wfim[1] + 0.35

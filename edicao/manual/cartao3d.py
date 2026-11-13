@@ -32,10 +32,14 @@ def _cantos(cw, ch, cx, cy, yaw, pitch, esc, f=2200):
         k = f / (f + z2); pts.append([cx + x1 * k, cy + y2 * k])
     return np.float32(pts)
 
-def gerar(saida, imagens, durs, fonte, contador=None, rotulo=None, yaw0=-9, yaw1=7, cy=1020, maxw=880, maxh=1050):
+def gerar(saida, imagens, durs, fonte, contador=None, rotulo=None, yaw0=-9, yaw1=7, cy=1020, maxw=880, maxh=1050, transparente=False):
     """imagens: lista de caminhos; durs: duração de cada uma (s). contador: dict(t19, t17, tfim) em s relativos."""
-    p = subprocess.Popen(["ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS),
-                          "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "17", "-pix_fmt", "yuv420p", saida], stdin=subprocess.PIPE)
+    if transparente:   # quadro pequeno com canal alfa (para ir por cima do vídeo)
+        p = subprocess.Popen(["ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgba", "-s", f"{W}x{H}", "-r", str(FPS),
+                              "-i", "-", "-c:v", "png", saida], stdin=subprocess.PIPE)
+    else:
+        p = subprocess.Popen(["ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS),
+                              "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "17", "-pix_fmt", "yuv420p", saida], stdin=subprocess.PIPE)
     f_num, f_lab = _fonte(fonte, 150, "Bold"), _fonte(fonte, 46, "SemiBold")
     total, t_glob = sum(durs), 0.0
     for idx, (ip, d) in enumerate(zip(imagens, durs)):
@@ -60,6 +64,14 @@ def gerar(saida, imagens, durs, fonte, contador=None, rotulo=None, yaw0=-9, yaw1
             somb = cv2.GaussianBlur(somb, (0, 0), 28)[..., None] * 0.65
             fr = (fr * (1 - somb)).astype(np.uint8)
             M = cv2.getPerspectiveTransform(src, dst)
+            if transparente:
+                war = cv2.warpPerspective(card, M, (W, H), flags=cv2.INTER_LINEAR).astype(np.float32)
+                mk = cv2.warpPerspective(np.ones((ch, cw), np.float32), M, (W, H))[..., None]
+                sb = somb / 0.65 * 0.55
+                alfa = mk + sb * (1 - mk)
+                rgb = war * mk / np.maximum(alfa, 1e-4)
+                fr4 = np.concatenate([np.clip(rgb, 0, 255), np.clip(alfa * 255, 0, 255)], axis=2).astype(np.uint8)
+                p.stdin.write(fr4.tobytes()); continue
             war = cv2.warpPerspective(card, M, (W, H), flags=cv2.INTER_LINEAR)
             mask = cv2.warpPerspective(np.ones((ch, cw), np.float32), M, (W, H))[..., None]
             fr = (fr * (1 - mask) + war * mask).astype(np.uint8)
