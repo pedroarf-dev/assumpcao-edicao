@@ -220,6 +220,18 @@ def render(versao):
     if wp and OB["picasso"]:
         f = TMP / f"picasso_{versao}.mp4"; cartao3d.gerar(str(f), [OB["picasso"]], [2.6], FONTE, yaw0=8, yaw1=-6)
         ins.append((f, wp[0] - 0.1, wp[0] + 2.5))
+    # vinheta (assinatura amarela, sem som) logo antes do trecho do loop
+    assin = Path("/dados/marca/assinatura-amarelo.mov"); lp = [c for c in clips if c["sid"] == "loop"]
+    if assin.exists() and lp:
+        tl = lp[0]["o"]
+        try: da = float(saida("ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", assin).strip())
+        except Exception: da = 1.8
+        da = min(max(da, 1.2), 2.5)
+        f = TMP / f"vinheta_{versao}.mov"
+        sh("ffmpeg", "-y", "-v", "error", "-i", assin, "-t", f"{da:.2f}", "-vf",
+           "fps=30,format=rgba,scale=300:-1,pad=1080:1920:1080-iw-70:1920-ih-260:color=black@0", "-an", "-c:v", "png", f)
+        ins.append((f, tl - da, tl)); print(f"VINHETA {tl - da:.2f}-{tl:.2f}", flush=True)
+    else: print("VINHETA ausente", assin.exists(), len(lp), flush=True)
     # ---- montagem ----
     leg = TMP / f"leg_{versao}.ass"; legenda(ws, leg)
     entradas = ["-i", junto]; fc = "[0:v]eq=contrast=1.04:saturation=1.08[b0]"; ult = "[b0]"
