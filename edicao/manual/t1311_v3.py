@@ -161,7 +161,7 @@ if not OB["basquiat"] or os.environ.get("DRY"):
 def render(versao):
     clips, dur = plano(versao)
     print(f"VERSAO {versao}: {len(clips)} cortes, {dur:.1f}s;", " ".join(c['cam'][0] for c in clips), flush=True)
-    CFR = TMP / "principal_cfr.mov"
+    CFR = TMP / "principal_cfr30.mov"
     if not CFR.exists():
         sh("ffmpeg", "-y", "-v", "error", "-i", SRC["principal"], "-vf", "fps=30,scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,format=yuv420p",
            "-af", "aresample=48000:async=1,aformat=channel_layouts=mono", "-c:v", "libx264", "-preset", "veryfast", "-crf", "15", "-g", "30",
