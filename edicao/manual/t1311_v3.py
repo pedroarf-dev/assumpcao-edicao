@@ -116,7 +116,8 @@ def legenda(ws, caminho):
         g = ws[i:i + 3]
         for j, w in enumerate(g):
             txt = " ".join(("{\\c&H00CCFF&}" + x[2] + "{\\c&HFFFFFF&}") if k == j else x[2] for k, x in enumerate(g))
-            fim = g[j + 1][0] if j + 1 < len(g) else w[1] + 0.15
+            prox = ws[i + 3][0] if i + 3 < len(ws) else 1e9
+            fim = g[j + 1][0] if j + 1 < len(g) else min(w[1] + 0.15, prox)
             L.append(f"Dialogue: 0,{ts(w[0])},{ts(max(fim, w[0] + 0.06))},L,,0,0,0,,{txt}")
     Path(caminho).write_text("\n".join(L), encoding="utf-8")
 
@@ -144,7 +145,7 @@ def render(versao):
         vf = {"zoom": "scale=1210:2150,crop=1080:1920:(iw-1080)/2:(ih-1920)*0.30",
               "principal": "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920",
               "apoio": "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920"}[c["cam"]]
-        sh("ffmpeg", "-y", "-v", "error", "-ss", f"{tv:.3f}", "-i", SRC[c["cam"]], "-ss", f"{ta:.3f}", "-i", SRC["principal"], "-t", f"{d:.3f}",
+        if not seg.exists(): sh("ffmpeg", "-y", "-v", "error", "-ss", f"{tv:.3f}", "-i", SRC[c["cam"]], "-ss", f"{ta:.3f}", "-i", SRC["principal"], "-t", f"{d:.3f}",
            "-map", "0:v:0", "-map", "1:a:0", "-vf", vf + ",setsar=1,fps=30,format=yuv420p",
            "-af", "aresample=48000,aformat=channel_layouts=mono", "-c:v", "libx264", "-preset", "veryfast", "-crf", "17", "-c:a", "pcm_s16le", seg)
         linhas.append(f"file '{seg}'")
