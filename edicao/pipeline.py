@@ -125,7 +125,7 @@ def renderizar(video, dados, saida_dir, base, com_legenda=True, com_vinheta=True
     final = saida_dir / f"{base} - final.mp4"
     dur = duracao(video)
     filtros, entradas, mapa_a = [], ["-i", str(video)], "0:a"
-    v = "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920"
+    v = "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,eq=contrast=1.04:saturation=1.08"  # cor natural com leve correção (P&B só como exceção pedida, 15/11)
     if CFG.get("zoom_alternado", True) and len(dados) > 1:
         z = CFG.get("zoom", 1.12); cy = CFG.get("zoom_centro_y", 0.36)
         trechos = "+".join(f"between(t,{d['ini']:.2f},{dados[i+1]['ini'] if i+1 < len(dados) else d['fim']:.2f})"
