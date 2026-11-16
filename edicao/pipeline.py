@@ -121,7 +121,7 @@ def ass_legenda(dados, caminho):
     Path(caminho).write_text("\n".join(linhas), encoding="utf-8")
 
 
-def renderizar(video, dados, saida_dir, base, com_legenda=True, com_vinheta=True):
+def renderizar(video, dados, saida_dir, base, com_legenda=True, com_vinheta=True, clipes=()):
     final = saida_dir / f"{base} - final.mp4"
     dur = duracao(video)
     filtros, entradas, mapa_a = [], ["-i", str(video)], "0:a"
@@ -133,21 +133,27 @@ def renderizar(video, dados, saida_dir, base, com_legenda=True, com_vinheta=True
         cond = trechos.replace("t,", "in/30,")
         v += (f",zoompan=z='if({cond},{z},1)':x='iw/2-iw/zoom/2':y='(ih-ih/zoom)*{cy}'"
               f":d=1:s=1080x1920:fps=30")
+    filtros.append(v + "[vb]")
+    ultimo = "[vb]"; n_in = 1
+    # clipes de apoio (ex.: gerados por IA): cobrem a imagem por alguns segundos; a fala do Pedro continua por baixo
+    for k, (arq, ini, fim) in enumerate(clipes):
+        entradas += ["-itsoffset", f"{ini:.2f}", "-i", str(arq)]
+        filtros.append(f"[{n_in}:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30[ck{k}];"
+                       f"{ultimo}[ck{k}]overlay=eof_action=pass:enable='between(t,{ini:.2f},{fim:.2f})'[vk{k}]")
+        ultimo = f"[vk{k}]"; n_in += 1
     if com_legenda and dados:
         ass = saida_dir / f"{base}.ass"; ass_legenda(dados, ass)
-        v += f",subtitles='{ass.as_posix()}'"
-    filtros.append(v + "[v0]")
-    ultimo = "[v0]"
+        filtros.append(f"{ultimo}subtitles='{ass.as_posix()}'[v0]"); ultimo = "[v0]"
     assin, som = MARCA / "assinatura-amarelo.mov", MARCA / "som-assinatura-padrao.wav"
     if com_vinheta and assin.exists() and som.exists():
         ini = max(0.0, dur - 1.8)
         entradas += ["-itsoffset", f"{ini:.2f}", "-i", str(assin), "-i", str(som)]
-        filtros.append(f"[1:v]scale=300:-1[ass];{ultimo}[ass]overlay=x=W-w-70:y=H-h-260:eof_action=repeat[v1]")
+        filtros.append(f"[{n_in}:v]scale=300:-1[ass];{ultimo}[ass]overlay=x=W-w-70:y=H-h-260:eof_action=repeat[v1]")
         ultimo = "[v1]"
         ms = int(ini * 1000)
         # baixa o áudio do vídeo 0,3 s antes da coroa e entra a caneta
         filtros.append(f"[0:a]volume='if(gte(t,{ini - 0.3:.2f}),0.55,1)':eval=frame[a0];"
-                       f"[2:a]adelay={ms}|{ms}[a1];[a0][a1]amix=inputs=2:normalize=0:duration=first[a]")
+                       f"[{n_in + 1}:a]adelay={ms}|{ms}[a1];[a0][a1]amix=inputs=2:normalize=0:duration=first[a]")
         mapa_a = "[a]"
     sh("ffmpeg", "-y", "-v", "error", *entradas, "-filter_complex", ";".join(filtros),
        "-map", ultimo, "-map", mapa_a, "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
@@ -155,6 +161,55 @@ def renderizar(video, dados, saida_dir, base, com_legenda=True, com_vinheta=True
     sh("ffmpeg", "-y", "-v", "error", "-ss", f"{min(2.0, dur / 2):.2f}", "-i", final,
        "-frames:v", "1", "-vf", "scale=540:-1", saida_dir / f"{base} - previa.jpg")
     return final
+
+
+CLIPES = Path(os.environ.get("CLIPES", "/dados/clipes"))
+
+
+def _norm(t):
+    import re, unicodedata
+    t = unicodedata.normalize("NFD", t.lower()); t = "".join(c for c in t if unicodedata.category(c) != "Mn")
+    return re.sub(r"[^a-z0-9 ]", " ", t).split()
+
+
+def _achar(pal, frase, limite=None):
+    """acha a frase na lista de palavras (com tempo); devolve (nota, índice) da melhor janela"""
+    import difflib
+    alvo = _norm(frase); n = len(alvo)
+    if not n: return 0.0, 0
+    toks = [(_norm(w["p"]) or [""])[0] for w in pal]
+    melhor = (0.0, 0)
+    for i in range(0, min(len(toks), limite or len(toks)) - n + 1):
+        r = difflib.SequenceMatcher(None, alvo, toks[i:i + n]).ratio()
+        if r > melhor[0]: melhor = (r, i)
+    return melhor
+
+
+def clipes_para(dados, dur_video):
+    """Manifestos em /dados/clipes/<id>.json ligam o bruto ao card pelo GANCHO falado (não pelo nome do arquivo).
+    {"id","gancho","clipes":[{"arquivo","ponto":"abertura"|"frase","frase","segundos"}]} — no máximo 2 clipes."""
+    pal = [w for d in dados for w in d.get("palavras", [])]
+    if not pal or not CLIPES.exists(): return []
+    for mf in sorted(CLIPES.glob("*.json")):
+        try: m = json.loads(mf.read_text(encoding="utf-8"))
+        except Exception as e: print("manifesto ilegível:", mf.name, e, flush=True); continue
+        nota, _ = _achar(pal, m.get("gancho", ""), limite=60)
+        print(f"clipes: manifesto {mf.name} gancho {nota:.2f}", flush=True)
+        if nota < 0.6: continue
+        res = []
+        for c in (m.get("clipes") or [])[:2]:
+            arq = CLIPES / c.get("arquivo", "")
+            if not arq.exists(): print("clipe não encontrado:", arq, flush=True); continue
+            ini = 0.0
+            if c.get("ponto") == "frase":
+                n2, i2 = _achar(pal, c.get("frase", ""))
+                if n2 < 0.6: print("frase do clipe não encontrada na fala:", c.get("frase"), f"({n2:.2f})", flush=True); continue
+                ini = max(0.0, pal[i2]["ini"] - 0.1)
+            seg = min(float(c.get("segundos") or 4), duracao(arq), 8.0)
+            fim = min(ini + seg, dur_video - 2.0)
+            if fim - ini >= 1.0: res.append((arq, ini, fim)); print(f"clipe {arq.name}: {ini:.1f}–{fim:.1f}s", flush=True)
+        return res
+    return []
 
 
 def main():
@@ -174,9 +229,11 @@ def main():
     saida.mkdir(parents=True, exist_ok=True)
     cortado = cortar(entrada, saida, base)
     dados = [] if a.sem_transcricao else transcrever(cortado, saida, base)
-    renderizar(cortado, dados, saida, base, not a.sem_legenda, not a.sem_vinheta)
+    clipes = clipes_para(dados, duracao(cortado)) if dados else []
+    renderizar(cortado, dados, saida, base, not a.sem_legenda, not a.sem_vinheta, clipes)
     (saida / "PRONTO.txt").write_text(
-        f"bruto: {entrada.name}\nestilo: {a.estilo}\nduração bruto: {duracao(entrada):.1f}s\nduração cortado: {duracao(cortado):.1f}s\n",
+        f"bruto: {entrada.name}\nestilo: {a.estilo}\nduração bruto: {duracao(entrada):.1f}s\nduração cortado: {duracao(cortado):.1f}s\n"
+        + "".join(f"clipe: {c[0].name} em {c[1]:.1f}–{c[2]:.1f}s\n" for c in clipes),
         encoding="utf-8")
     for f in list(saida.glob("* - vertical.mp4")) + list(saida.glob("*.ass")):
         f.unlink()   # intermediários
