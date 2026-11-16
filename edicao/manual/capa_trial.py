@@ -51,6 +51,29 @@ def capa(nome, y0, tam, sombra_de, sombra_ate):
     dp.rectangle((0, 90, 404, 630), outline=(255, 0, 0), width=1)
     pv.save(B / f"{nome}_previa.jpg", quality=80)
 
+# ---------- opção C: título no alto, para onde o dedo aponta ----------
+import numpy as np, cv2
+arr = cv2.cvtColor(np.array(im0), cv2.COLOR_RGB2BGR)
+# tira o reflexo redondo (anel de luz) no vidro de um quadro
+cx, cy, rr = int(os.environ.get("ANEL_X", "456")), int(os.environ.get("ANEL_Y", "720")), int(os.environ.get("ANEL_R", "44"))
+m = np.zeros(arr.shape[:2], np.uint8); cv2.circle(m, (cx, cy), rr, 255, -1)
+arr = cv2.inpaint(arr, m, 7, cv2.INPAINT_TELEA)
+limpa = Image.fromarray(cv2.cvtColor(arr, cv2.COLOR_BGR2RGB))
+DESCE = 230                                            # desce a foto e continua a parede lisa no alto
+base = Image.new("RGB", (W, H)); topo = limpa.crop((0, 0, W, 24)).resize((W, DESCE + 24), Image.BILINEAR).filter(ImageFilter.GaussianBlur(18))
+base.paste(topo, (0, 0)); base.paste(limpa.crop((0, 0, W, H - DESCE)), (0, DESCE))
+# emenda suave entre a parede continuada e a foto
+faixa = base.crop((0, DESCE - 30, W, DESCE + 30)).filter(ImageFilter.GaussianBlur(12)); base.paste(faixa, (0, DESCE - 30))
+d = ImageDraw.Draw(base); INK = (20, 20, 22); tam = 112; f = fnt(tam); x = 90; y = 268
+d.text((x, y), "Qualquer", font=f, fill=INK)
+y2 = y + int(tam * 1.12); wcr = d.textlength("criança", font=f)
+bb = d.textbbox((x, y2), "criança", font=f)
+d.rectangle((bb[0] - 10, bb[1] + int(tam * 0.18), bb[2] + 10, bb[3] + 6), fill=YEL)      # marca-texto amarelo
+d.text((x, y2), "criança", font=f, fill=INK); d.text((x + wcr, y2), " faz", font=f, fill=INK)
+yt = y + int(tam * 2.5); d.line([(x + 2, yt), (x + 150, yt)], fill=INK, width=4); d.text((x, yt + 14), "arte", font=fnt(38), fill=INK)
+base.save(B / "capa-trial-C-dedo.jpg", quality=93)
+pv = base.resize((405, 720), Image.LANCZOS); ImageDraw.Draw(pv).rectangle((0, 90, 404, 630), outline=(255, 0, 0), width=1); pv.save(B / "capa-trial-C-dedo_previa.jpg", quality=80)
+im0 = limpa                                            # A e B também sem o anel
 capa("capa-trial-A-embaixo", 1300, 104, 1230, 1720)   # título sobre o casaco
 capa("capa-trial-B-emcima", 300, 104, 230, 720)       # título sobre a parede
 im0.resize((405, 720), Image.LANCZOS).save(B / "foto_previa.jpg", quality=80)
