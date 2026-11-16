@@ -59,7 +59,7 @@ cx, cy, rr = int(os.environ.get("ANEL_X", "456")), int(os.environ.get("ANEL_Y", 
 m = np.zeros(arr.shape[:2], np.uint8); cv2.circle(m, (cx, cy), rr, 255, -1)
 arr = cv2.inpaint(arr, m, 7, cv2.INPAINT_TELEA)
 limpa = Image.fromarray(cv2.cvtColor(arr, cv2.COLOR_BGR2RGB))
-DESCE = 230                                            # desce a foto e continua a parede lisa no alto
+DESCE = 300                                            # desce a foto e continua a parede lisa no alto
 base = Image.new("RGB", (W, H)); topo = limpa.crop((0, 0, W, 24)).resize((W, DESCE + 24), Image.BILINEAR).filter(ImageFilter.GaussianBlur(18))
 base.paste(topo, (0, 0)); base.paste(limpa.crop((0, 0, W, H - DESCE)), (0, DESCE))
 # emenda suave entre a parede continuada e a foto
