@@ -137,11 +137,11 @@ def estudo(p: dict = Body(...)):
     arq = '%s/pedido-%s.html' % (TMP, p.get('id', int(time.time())))
     open(arq, 'w', encoding='utf-8').write(''.join(partes))
     try:
-        c, o, e = rclone('copyto', arq, 'gdrive:%s/%s.html' % (PASTA, nome), '--drive-import-formats', 'html', '--log-level', 'ERROR')
+        c, o, e = rclone('copyto', arq, 'gdrive:%s/%s.html' % (PASTA, nome), '--drive-import-formats', 'html', '--drive-export-formats', 'html', '--log-level', 'ERROR')
         if c != 0: return {'ok': False, 'erro': 'upload falhou: ' + e[:300]}
-        c, o, e = rclone('lsjson', 'gdrive:' + PASTA, '--files-only', '--no-modtime')
+        c, o, e = rclone('lsjson', 'gdrive:' + PASTA, '--files-only', '--no-modtime', '--drive-export-formats', 'html')
         lst = json.loads(o or '[]')
-        cand = [x for x in lst if x.get('Name', '').rsplit('.', 1)[0] == nome or x.get('Name') == nome or x.get('Name') == nome + '.docx']
+        cand = [x for x in lst if x.get('Name', '').rsplit('.', 1)[0] == nome or x.get('Name') == nome or x.get('Name') in (nome + '.docx', nome + '.html')]
         if not cand: return {'ok': False, 'erro': 'Doc não encontrado depois do upload', 'nomes': [x.get('Name') for x in lst][:20]}
         did = cand[-1]['ID']
         return {'ok': True, 'link': 'https://docs.google.com/document/d/%s/edit' % did, 'nome': nome, 'artigos': res, 'segundos': round(time.time() - ini, 1)}
