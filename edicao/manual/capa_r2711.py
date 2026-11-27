@@ -30,13 +30,13 @@ YEL = (255, 204, 0)
 TOP, BOT = 270, 1650          # dentro do recorte 3:4 (240–1680) com folga
 def capa(nome, l1, l2, dest, eixo="criar", tam=118):
     im = im0.copy(); d = ImageDraw.Draw(im); f = fnt(tam, 500); x = 90
-    alt = int(tam * 2.45) + 90
+    alt = int(tam * 2.45) + 110
     y0 = TOP if CALMA["topo"] <= CALMA["base"] else BOT - alt
     y0 = min(max(y0, TOP), BOT - alt)
     lum = ImageStat.Stat(im.crop((0, y0, W, y0 + alt)).convert("L")).mean[0]
     escuro = lum < 120; INK = (250, 250, 247) if escuro else (18, 18, 20); SH = (0, 0, 0) if escuro else None
     if escuro or lum < 160:   # faixa suave para leitura
-        m = Image.new("L", (W, H), 0); ImageDraw.Draw(m).rectangle((0, y0 - 60, W, y0 + alt + 30), fill=140 if escuro else 90)
+        m = Image.new("L", (W, H), 0); ImageDraw.Draw(m).rectangle((0, y0 - 60, W, y0 + alt + 60), fill=140 if escuro else 130)
         im = Image.composite(Image.new("RGB", (W, H), (12, 12, 14) if escuro else (245, 245, 240)), im, m.filter(ImageFilter.GaussianBlur(80))); d = ImageDraw.Draw(im)
     def linha(y, partes):
         cx = x
@@ -50,8 +50,8 @@ def capa(nome, l1, l2, dest, eixo="criar", tam=118):
             cx += d.textlength(txt, font=f)
     linha(y0, l1); linha(y0 + int(tam * 1.12), l2)
     yt = y0 + int(tam * 2.45)
-    d.line([(x + 2, yt), (x + 170, yt)], fill=INK, width=6)
-    fe = fnt(58, 600)                                    # etiqueta do eixo: maior e com peso (antes 38 fino)
+    d.line([(x + 2, yt), (x + 190, yt)], fill=INK, width=7)
+    fe = fnt(74, 700)                                    # etiqueta do eixo: maior e com peso (antes 38 fino)
     if SH: d.text((x + 2, yt + 22), eixo, font=fe, fill=SH)
     d.text((x, yt + 18), eixo, font=fe, fill=INK)
     im.save(B / f"{nome}.jpg", quality=93)
