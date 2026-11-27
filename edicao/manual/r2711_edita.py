@@ -1,5 +1,5 @@
 """Reel 27/11 (Eulino Falante) — edição padrão (sem motion): frases escolhidas (SEL), Pixel aberto/fechado,
-apoio (OPPO) só nos ids de APOIO, legenda palavra a palavra, cor natural, −14 LUFS, vinheta no fim, QC de repetição, entrega no Telegram."""
+apoio (OPPO) DESLIGADO desde 27/11, legenda palavra a palavra, cor natural, −14 LUFS, vinheta no fim, QC de repetição, entrega no Telegram."""
 import json, os, re, shutil, subprocess, difflib, wave
 from pathlib import Path
 import numpy as np
@@ -28,7 +28,7 @@ for k, (fid, ci, cf) in enumerate(CFG["sel"]):
     u = FR[fid]; ws = [w for w in u["w"] if w[0] >= u["ini"] + (ci or 0) - 1e-3 and w[1] <= u["fim"] - (cf or 0) + 1e-3]
     a = ws[0][0] - PRE; b = ws[-1][1] + POS
     if k == len(CFG["sel"]) - 1: b += float(CFG.get("parado", 1.4))      # 1–2 s parado no fim
-    if fid in CFG.get("apoio", []): c = "apoio"
+    if False: c = "apoio"   # 27/11: apoio (OPPO) desligado — o corte de apoio quebrava a emenda; áudio é sempre o da principal
     elif k == 0 or k >= len(CFG["sel"]) - 1: c = "principal"
     else:
         c = cam if cam != "apoio" else "principal"
@@ -55,7 +55,11 @@ for i, c in enumerate(clips):
     linhas.append(f"file '{seg}'")
 (TMP / "lista.txt").write_text("\n".join(linhas)); junto = TMP / "junto.mov"
 sh("ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", TMP / "lista.txt", "-c", "copy", junto)
-ws = [(c["o"] + w[0] - c["a"], c["o"] + w[1] - c["a"], fix(w[2])) for c in clips for w in c["ws"]]
+FIXF = CFG.get("fixf", {})
+def fixf(fid, p):
+    for a, b in FIXF.get(str(fid), {}).items(): p = re.sub(r"\b" + re.escape(a) + r"\b", b, p, flags=re.I)
+    return p
+ws = [(c["o"] + w[0] - c["a"], c["o"] + w[1] - c["a"], fixf(c["fid"], fix(w[2]))) for c in clips for w in c["ws"]]
 def ts(x):
     h, r = divmod(max(0, x), 3600); m, s = divmod(r, 60); return f"{int(h)}:{int(m):02d}:{s:05.2f}"
 L = ["[Script Info]", "ScriptType: v4.00+", "PlayResX: 1080", "PlayResY: 1920", "WrapStyle: 2", "", "[V4+ Styles]",
@@ -81,28 +85,42 @@ fc += ";[0:a]highpass=f=80" + (f",arnndn=m='{rnn}':mix=0.7" if rnn.exists() else
 final = OUT / f"Eulino Falante - {CFG['versao']}.mp4"
 sh("ffmpeg", "-y", "-v", "error", *entradas, "-filter_complex", fc, "-map", "[vf]", "-map", "[a]", "-t", f"{dur:.2f}", "-c:v", "libx264", "-preset", "medium", "-crf", "22",
    "-maxrate", "2600k", "-bufsize", "5200k", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", final)
-ebu = saida("ffmpeg", "-hide_banner", "-nostats", "-i", final, "-af", "ebur128", "-f", "null", "-"); lufs = [l.strip() for l in ebu.splitlines() if l.strip().startswith("I:")]
+def medir(f):
+    e = saida("ffmpeg", "-hide_banner", "-nostats", "-i", f, "-af", "ebur128=peak=true", "-f", "null", "-")
+    m = re.findall(r"I:\s+(-?[\d.]+) LUFS", e); return float(m[-1]) if m else None
+li = medir(final)
+if li is not None and abs(li + 14) > 0.4:
+    tmpf = TMP / "ganho.mp4"
+    sh("ffmpeg", "-y", "-v", "error", "-i", final, "-c:v", "copy", "-af", f"volume={-14 - li:.2f}dB,alimiter=limit=0.84:level=false", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", tmpf)
+    os.replace(tmpf, final); li = medir(final)
+lufs = [f"I: {li} LUFS"] if li is not None else []
 qd = OUT / f"quadros_{CFG['versao']}"; qd.mkdir(exist_ok=True)
 for k in range(10):
     tt = dur * (k + 0.5) / 10; sh("ffmpeg", "-y", "-v", "error", "-ss", f"{tt:.2f}", "-i", final, "-frames:v", "1", "-vf", "scale=360:-2", qd / f"{k}_{tt:05.1f}.jpg")
 from faster_whisper import WhisperModel
-from faster_whisper.vad import get_speech_timestamps, VadOptions
 m = WhisperModel("large-v3-turbo", device="cpu", compute_type="int8", cpu_threads=2)
 wv = TMP / "qc.wav"; sh("ffmpeg", "-y", "-v", "error", "-i", final, "-ac", "1", "-ar", "16000", wv)
 ww = wave.open(str(wv)); x = np.frombuffer(ww.readframes(ww.getnframes()), np.int16).astype(np.float32) / 32768
-norm = lambda s: re.sub(r"[^\wà-ú ]", "", s.lower()).split(); us = []
-for tt in get_speech_timestamps(x, VadOptions(min_silence_duration_ms=300, speech_pad_ms=100)):
-    segs, _ = m.transcribe(x[tt["start"]:tt["end"]], language="pt", condition_on_previous_text=False, vad_filter=False)
-    tx = " ".join(s.text.strip() for s in segs).strip()
-    if tx: us.append((tt["start"] / 16000, tx)); print(f"Q {tt['start']/16000:6.1f} | {tx}", flush=True)
+norm = lambda s: re.sub(r"[^\wà-ú ]", "", s.lower()).split(); us = []; falhas = []
+dreal = float(saida("ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", final).strip() or 0)
+if abs(dreal - dur) > 0.3: falhas.append(f"duração {dreal:.1f}s ≠ plano {dur:.1f}s")
+# QC por corte: cada corte do plano tem de soar como o texto esperado, no lugar esperado
+for i, c in enumerate(clips):
+    a0, a1 = int(c["o"] * 16000), int((c["o"] + c["nf"] / 30) * 16000)
+    segs, _ = m.transcribe(x[a0:a1], language="pt", condition_on_previous_text=False, vad_filter=False)
+    tx = " ".join(s_.text.strip() for s_ in segs).strip(); esp = " ".join(w[2] for w in c["ws"])
+    r = difflib.SequenceMatcher(None, norm(tx), norm(esp)).ratio()
+    us.append((c["o"], tx)); print(f"Q {c['o']:6.1f} [{c['fid']:02d}] {r:.2f} | {tx}", flush=True)
+    if r < 0.6 and len(norm(esp)) > 2: falhas.append(f"{c['o']:.1f}s frase {c['fid']}: ouvi '{tx[:50]}' / esperado '{esp[:50]}'")
 rep = [f"{us[i][0]:.1f}s '{us[i][1][:40]}'" for i in range(len(us)) for j in range(i + 1, min(i + 4, len(us)))
        if (lambda a, b: min(len(a), len(b), 6) >= 3 and difflib.SequenceMatcher(None, a[:6], b[:6]).ratio() >= 0.75)(norm(us[i][1]), norm(us[j][1]))
        and us[j][0] - us[i][0] < 30 and i != 0]
-info = {"dur": round(dur, 1), "cortes": len(clips), "mb": round(final.stat().st_size / 1e6, 1), "lufs": lufs[-1] if lufs else None, "repeticoes": rep}
+info = {"dur": round(dur, 1), "cortes": len(clips), "mb": round(final.stat().st_size / 1e6, 1), "lufs": lufs[-1] if lufs else None, "repeticoes": rep, "falhas": falhas}
 print("INFO", json.dumps(info, ensure_ascii=False), flush=True)
 ENT = Path("/dados/entregas"); dst = ENT / f"r2711-eulino-{CFG['versao']}.mp4"; shutil.copy(final, dst)
 resumo = f"🎬 Reel · Eulino Falante — {CFG['versao']} (padrão, sem motion)\n⏱ {info['dur']:.0f} s · {info['cortes']} cortes · {info['lufs'] or ''}\n\nNota: {CFG['nota']}/10\n{CFG['resumo']}\n\nNota a partir da transcrição + medidas + quadros."
-if not CFG.get("so_render"):
+if falhas or rep: print("NAO-ENTREGUE: o QC achou problema — corrigir antes de mandar ao Pedro", flush=True)
+if not CFG.get("so_render") and not falhas and not rep:
     json.dump({"arquivo": str(dst), "titulo": "Eulino Falante — os nossos censores", "versao": CFG["versao"], "estilo": "padrao", "nota": CFG["nota"].replace(",", "."),
                "resumo": resumo[:1020]}, open(ENT / f"r2711-eulino-{CFG['versao']}.json", "w"), ensure_ascii=False)
 import docker
