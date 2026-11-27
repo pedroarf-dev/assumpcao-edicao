@@ -14,6 +14,12 @@ src = B / "src"; src.mkdir(exist_ok=True)
 if not list(src.glob("*")): print("copyid", rc("backend", "copyid", "gdrive:", FID, str(src) + "/"), flush=True)
 foto = sorted(src.glob("*"))[0]; W, H = 1080, 1920
 im0 = ImageOps.fit(ImageOps.exif_transpose(Image.open(foto)).convert("RGB"), (W, H), Image.LANCZOS)
+from PIL import ImageEnhance
+# Pedro 27/11: branco estourado -> baixa os claros (curva) e sobe o contraste
+lut = [int(255 * ((i / 255) ** 1.35)) for i in range(256)]
+im0 = im0.point(lut * 3)
+im0 = ImageEnhance.Contrast(im0).enhance(1.18)
+im0 = ImageEnhance.Color(im0).enhance(1.06)
 g = np.asarray(im0.convert("L"), dtype=np.float32)
 def calma(y0, y1):  # menos detalhe = melhor lugar para o título
     a = g[y0:y1]; return float(np.abs(np.diff(a, axis=1)).mean() + np.abs(np.diff(a, axis=0)).mean())
@@ -35,14 +41,14 @@ def capa(nome, l1, l2, dest, eixo="criar", tam=118):
     y0 = min(max(y0, TOP), BOT - alt)
     lum = ImageStat.Stat(im.crop((0, y0, W, y0 + alt)).convert("L")).mean[0]
     escuro = lum < 120; INK = (250, 250, 247) if escuro else (18, 18, 20); SH = (0, 0, 0) if escuro else None
-    if escuro or lum < 160:   # faixa suave para leitura
+    if escuro:   # faixa escura só se o fundo for escuro (a faixa clara estourava o branco)
         m = Image.new("L", (W, H), 0); ImageDraw.Draw(m).rectangle((0, y0 - 60, W, y0 + alt + 60), fill=140 if escuro else 130)
         im = Image.composite(Image.new("RGB", (W, H), (12, 12, 14) if escuro else (245, 245, 240)), im, m.filter(ImageFilter.GaussianBlur(80))); d = ImageDraw.Draw(im)
     def linha(y, partes):
         cx = x
         for txt, hl in partes:
             if hl:
-                bb = d.textbbox((cx, y), txt, font=f); d.rectangle((bb[0] - 10, bb[1] + int(tam * .18), bb[2] + 10, bb[3] + 6), fill=YEL)
+                bb = d.textbbox((cx, y), txt, font=f); d.rectangle((bb[0] - 12, bb[1] - 4, bb[2] + 12, bb[3] + 12), fill=YEL)   # marca-texto na palavra inteira
                 d.text((cx, y), txt, font=f, fill=(18, 18, 20))
             else:
                 if SH: d.text((cx + 3, y + 4), txt, font=f, fill=SH)
