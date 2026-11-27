@@ -35,7 +35,12 @@ def fnt(s, w=400):
 YEL = (255, 204, 0)
 TOP, BOT = 270, 1650          # dentro do recorte 3:4 (240–1680) com folga
 def capa(nome, l1, l2, dest, eixo="criar", tam=118):
-    im = im0.copy(); d = ImageDraw.Draw(im); f = fnt(tam, 500); x = 90
+    im = im0.copy(); d = ImageDraw.Draw(im); x = 90
+    while True:   # encolhe se a linha mais larga não couber
+        f = fnt(tam, 500)
+        larg = max(sum(d.textlength(t, font=f) for t, _ in l) for l in (l1, l2))
+        if x + larg <= W - 70 or tam <= 80: break
+        tam -= 4
     alt = int(tam * 2.45) + 110
     y0 = TOP if CALMA["topo"] <= CALMA["base"] else BOT - alt
     y0 = min(max(y0, TOP), BOT - alt)
@@ -64,8 +69,7 @@ def capa(nome, l1, l2, dest, eixo="criar", tam=118):
     pv.save(B / f"{nome}_previa.jpg", quality=82)
     grade = im.crop((0, 240, W, 1680)).resize((360, 480), Image.LANCZOS); grade.save(B / f"{nome}_grade.jpg", quality=82)
     print(nome, "y0", y0, "lum", round(lum), "dentro do 3:4:", 240 <= y0 and y0 + alt + 80 <= 1680, flush=True)
-capa("capa-r2711-A-censores", [("Os nossos", False)], [("censores", True)], None)
-capa("capa-r2711-B-proibiu", [("Ninguém te", False)], [("proibiu", True)], None)
+capa("capa-r2711-final", [("Quem te ", False), ("proibiu", True)], [("de começar?", False)], None)   # título aprovado (recado #78)
 im0.resize((405, 720), Image.LANCZOS).save(B / "foto_previa.jpg", quality=80)
 print("rclone", rc("copy", str(B), "gdrive:_analises/r2711/capa", "--exclude", "src/**"), flush=True)
 print("FIM-CAPA", flush=True)
