@@ -3,7 +3,7 @@ título dentro do recorte 3:4 da grade (y 240–1680). Gera 2 títulos x posiç�
 import os
 from pathlib import Path
 from PIL import Image, ImageOps, ImageDraw, ImageFont, ImageFilter, ImageStat
-import numpy as np, cv2, docker
+import numpy as np, docker
 B = Path("/dados/r2711/capa"); B.mkdir(parents=True, exist_ok=True)
 FID = os.environ.get("FOTO_ID", "128brvDxXXwaBxgxO8tsKzDar5D19Cue1")
 cs = docker.from_env().containers.get("assumpcao-sync")
@@ -14,10 +14,12 @@ src = B / "src"; src.mkdir(exist_ok=True)
 if not list(src.glob("*")): print("copyid", rc("backend", "copyid", "gdrive:", FID, str(src) + "/"), flush=True)
 foto = sorted(src.glob("*"))[0]; W, H = 1080, 1920
 im0 = ImageOps.fit(ImageOps.exif_transpose(Image.open(foto)).convert("RGB"), (W, H), Image.LANCZOS)
-g = cv2.cvtColor(np.array(im0), cv2.COLOR_RGB2GRAY)
-fc = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml").detectMultiScale(g, 1.1, 6, minSize=(150, 150))
-face = max(fc, key=lambda r: r[2] * r[3]) if len(fc) else None
-print("foto", foto.name, "rosto", face, flush=True)
+g = np.asarray(im0.convert("L"), dtype=np.float32)
+def calma(y0, y1):  # menos detalhe = melhor lugar para o título
+    a = g[y0:y1]; return float(np.abs(np.diff(a, axis=1)).mean() + np.abs(np.diff(a, axis=0)).mean())
+face = None
+CALMA = {"topo": calma(270, 700), "base": calma(1220, 1650)}
+print("foto", foto.name, "calma", CALMA, flush=True)
 FONT = "/cache/fonts/Fraunces.ttf"
 def fnt(s, w=400):
     f = ImageFont.truetype(FONT, s)
@@ -29,10 +31,7 @@ TOP, BOT = 270, 1650          # dentro do recorte 3:4 (240–1680) com folga
 def capa(nome, l1, l2, dest, eixo="criar", tam=118):
     im = im0.copy(); d = ImageDraw.Draw(im); f = fnt(tam, 500); x = 90
     alt = int(tam * 2.45) + 90
-    if face is not None:
-        fy0, fy1 = face[1], face[1] + face[3]
-        y0 = TOP if (fy0 - TOP) >= alt + 40 else max(fy1 + 60, BOT - alt) if (BOT - fy1) >= alt + 40 else TOP
-    else: y0 = TOP
+    y0 = TOP if CALMA["topo"] <= CALMA["base"] else BOT - alt
     y0 = min(max(y0, TOP), BOT - alt)
     lum = ImageStat.Stat(im.crop((0, y0, W, y0 + alt)).convert("L")).mean[0]
     escuro = lum < 120; INK = (250, 250, 247) if escuro else (18, 18, 20); SH = (0, 0, 0) if escuro else None
